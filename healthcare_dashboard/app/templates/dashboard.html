@@ -12,19 +12,22 @@
             height: 300px;
             width: 100%;
         }
+        .loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
     </style>
 </head>
 <body class="bg-gray-100">
     <div class="container mx-auto px-4 py-8">
         <h1 class="text-3xl font-bold mb-8">Healthcare Resource Dashboard</h1>
-
-        <!-- Alerts Section -->
-        <div class="mb-8 bg-white rounded-lg shadow p-6">
-            <h2 class="text-xl font-semibold mb-4">System Alerts</h2>
-            <div id="alerts-container">
-                <!-- Alerts will be inserted here -->
-            </div>
-        </div>
+        
+        <!-- Debug Info -->
+        <!-- <div id="debug-info" class="mb-4 p-4 bg-yellow-100 hidden">
+            <pre class="whitespace-pre-wrap"></pre>
+        </div> -->
 
         <!-- Charts Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -33,6 +36,7 @@
                 <h2 class="text-xl font-semibold mb-4">Bed Occupancy</h2>
                 <div class="chart-container">
                     <canvas id="bedOccupancyChart"></canvas>
+                    <div id="bed-loading" class="loading">Loading...</div>
                 </div>
             </div>
 
@@ -41,6 +45,7 @@
                 <h2 class="text-xl font-semibold mb-4">Staff Workload</h2>
                 <div class="chart-container">
                     <canvas id="staffWorkloadChart"></canvas>
+                    <div id="staff-loading" class="loading">Loading...</div>
                 </div>
             </div>
 
@@ -49,6 +54,7 @@
                 <h2 class="text-xl font-semibold mb-4">Equipment Usage</h2>
                 <div class="chart-container">
                     <canvas id="equipmentChart"></canvas>
+                    <div id="equipment-loading" class="loading">Loading...</div>
                 </div>
             </div>
 
@@ -57,41 +63,63 @@
                 <h2 class="text-xl font-semibold mb-4">Supply Status</h2>
                 <div class="chart-container">
                     <canvas id="supplyChart"></canvas>
+                    <div id="supply-loading" class="loading">Loading...</div>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Fetch and display dashboard data
-        async function fetchDashboardData() {
-            try {
-                const response = await fetch('http://localhost:5000/api/dashboard/summary');
-                const data = await response.json();
-                
-                // Update charts
-                updateBedOccupancyChart(data.bed_occupancy);
-                updateStaffWorkloadChart(data.staff_workload);
-                updateEquipmentChart(data.equipment_utilization);
-                displayAlerts(data.alerts);
-            } catch (error) {
-                console.error('Error fetching dashboard data:', error);
-            }
+        // Debug mode
+        const DEBUG = true;
+
+        function showDebug(data) {
+            // if (DEBUG) {
+            //     const debugDiv = document.getElementById('debug-info');
+            //     debugDiv.classList.remove('hidden');
+            //     debugDiv.querySelector('pre').textContent = JSON.stringify(data, null, 2);
+            // }
         }
 
-        // Create and update charts
+        async function fetchDashboardData() {
+    try {
+        const response = await fetch('/api/data');
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        console.log('Fetched data:', data);  // Debug log
+        showDebug(data);
+        return data;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        showDebug({error: error.message});
+        document.querySelectorAll('.loading').forEach(el => {
+            el.textContent = 'Failed to load data';
+        });
+        throw error;
+    }
+}
+
         function updateBedOccupancyChart(data) {
             const ctx = document.getElementById('bedOccupancyChart').getContext('2d');
+            const loading = document.getElementById('bed-loading');
+            
+            if (!data || !data.bed_occupancy || !data.bed_occupancy.statistics) {
+                loading.textContent = 'No data available';
+                return;
+            }
+            
+            loading.style.display = 'none';
+            
             new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: Object.keys(data.trend_by_department),
+                    labels: Object.keys(data.bed_occupancy.statistics.trend_by_department),
                     datasets: [{
                         label: 'Occupancy Rate (%)',
-                        data: Object.values(data.trend_by_department),
-                        backgroundColor: 'rgba(54, 162, 235, 0.5)',
-                        borderColor: 'rgba(54, 162, 235, 1)',
-                        borderWidth: 1
+                        data: Object.values(data.bed_occupancy.statistics.trend_by_department),
+                        backgroundColor: 'rgba(54, 162, 235, 0.5)'
                     }]
                 },
                 options: {
@@ -109,12 +137,22 @@
 
         function updateStaffWorkloadChart(data) {
             const ctx = document.getElementById('staffWorkloadChart').getContext('2d');
+            const loading = document.getElementById('staff-loading');
+            
+            if (!data || !data.staff_workload || !data.staff_workload.department_statistics) {
+                loading.textContent = 'No data available';
+                return;
+            }
+            
+            loading.style.display = 'none';
+            
+            const deptStats = data.staff_workload.department_statistics;
             new Chart(ctx, {
                 type: 'pie',
                 data: {
-                    labels: Object.keys(data),
+                    labels: Object.keys(deptStats),
                     datasets: [{
-                        data: Object.values(data).map(dept => dept.total_hours),
+                        data: Object.values(deptStats).map(dept => dept.total_hours),
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.5)',
                             'rgba(54, 162, 235, 0.5)',
@@ -132,19 +170,27 @@
 
         function updateEquipmentChart(data) {
             const ctx = document.getElementById('equipmentChart').getContext('2d');
+            const loading = document.getElementById('equipment-loading');
+            
+            if (!data || !data.equipment_utilization || !data.equipment_utilization.type_statistics) {
+                loading.textContent = 'No data available';
+                return;
+            }
+            
+            loading.style.display = 'none';
+            
+            const equipStats = data.equipment_utilization.type_statistics;
             new Chart(ctx, {
                 type: 'doughnut',
                 data: {
-                    labels: Object.keys(data),
+                    labels: Object.keys(equipStats),
                     datasets: [{
-                        data: Object.values(data).map(eq => eq.total_uses),
+                        data: Object.values(equipStats).map(eq => eq.total_uses),
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.5)',
                             'rgba(54, 162, 235, 0.5)',
                             'rgba(255, 206, 86, 0.5)',
-                            'rgba(75, 192, 192, 0.5)',
-                            'rgba(153, 102, 255, 0.5)',
-                            'rgba(255, 159, 64, 0.5)'
+                            'rgba(75, 192, 192, 0.5)'
                         ]
                     }]
                 },
@@ -155,31 +201,63 @@
             });
         }
 
-        function displayAlerts(alerts) {
-            const container = document.getElementById('alerts-container');
-            container.innerHTML = '';
-
-            const alertColors = {
-                critical: 'bg-red-100 border-red-500 text-red-700',
-                warning: 'bg-yellow-100 border-yellow-500 text-yellow-700',
-                info: 'bg-blue-100 border-blue-500 text-blue-700'
-            };
-
-            Object.entries(alerts).forEach(([level, messages]) => {
-                messages.forEach(message => {
-                    const alertDiv = document.createElement('div');
-                    alertDiv.className = `${alertColors[level]} border-l-4 p-4 mb-4`;
-                    alertDiv.textContent = message;
-                    container.appendChild(alertDiv);
-                });
+        function updateSupplyChart(data) {
+            const ctx = document.getElementById('supplyChart').getContext('2d');
+            const loading = document.getElementById('supply-loading');
+            
+            if (!data || !data.supplies || !data.supplies.category_statistics) {
+                loading.textContent = 'No data available';
+                return;
+            }
+            
+            loading.style.display = 'none';
+            
+            const supplyStats = data.supplies.category_statistics;
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(supplyStats),
+                    datasets: [{
+                        label: 'Total Transactions',
+                        data: Object.values(supplyStats).map(s => s.total_transactions),
+                        backgroundColor: 'rgba(75, 192, 192, 0.5)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
             });
         }
 
-        // Initial load
-        fetchDashboardData();
+        // Initialize dashboard
+                async function initializeDashboard() {
+            try {
+                console.log('Initializing dashboard...');  // Debug log
+                const data = await fetchDashboardData();
+                console.log('Got data:', data);  // Debug log
+                if (data.error) {
+                    throw new Error(data.error);
+                }
+                updateBedOccupancyChart(data);
+                updateStaffWorkloadChart(data);
+                updateEquipmentChart(data);
+                updateSupplyChart(data);
+            } catch (error) {
+                console.error('Failed to initialize dashboard:', error);
+                document.querySelectorAll('.loading').forEach(el => {
+                    el.textContent = 'Failed to load data';
+                });
+            }
+        }
 
-        // Refresh every 5 minutes
-        setInterval(fetchDashboardData, 300000);
+        // Start the dashboard
+        document.addEventListener('DOMContentLoaded', initializeDashboard);
     </script>
 </body>
 </html>
