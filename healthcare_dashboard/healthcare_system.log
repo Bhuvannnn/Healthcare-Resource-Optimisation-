@@ -1,0 +1,44 @@
+2024-11-23 00:45:35,530 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-11-23 00:45:35,530 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-23 00:45:46,193 - werkzeug - INFO - 127.0.0.1 - - [23/Nov/2024 00:45:46] "GET / HTTP/1.1" 200 -
+2024-11-23 00:45:46,620 - werkzeug - INFO - 127.0.0.1 - - [23/Nov/2024 00:45:46] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2024-11-23 00:45:49,769 - werkzeug - INFO - 127.0.0.1 - - [23/Nov/2024 00:45:49] "GET / HTTP/1.1" 200 -
+2024-11-23 00:50:15,046 - database_utils - INFO - Database connection established successfully
+2024-11-23 00:50:25,070 - database_utils - INFO - Database connection established successfully
+2024-11-23 00:50:25,142 - __main__ - INFO - Number of departments: 4
+2024-11-23 00:50:25,143 - __main__ - INFO - Number of staff members: 4
+2024-11-23 00:50:25,145 - __main__ - INFO - Number of equipment: 19
+2024-11-23 00:50:25,147 - __main__ - INFO - Number of supplies: 4
+2024-11-23 00:50:25,149 - __main__ - INFO - Number of admissions: 47
+2024-11-23 00:50:25,149 - __main__ - INFO - 
+Sample Department Data:
+2024-11-23 00:50:25,150 - __main__ - INFO - (1, 'Emergency', 'First Floor', 20, datetime.datetime(2024, 11, 22, 21, 50, 59, 356130))
+2024-11-23 00:50:25,150 - __main__ - INFO - (2, 'ICU', 'Second Floor', 10, datetime.datetime(2024, 11, 22, 21, 50, 59, 356130))
+2024-11-23 00:50:25,150 - __main__ - INFO - (3, 'General Medicine', 'Third Floor', 30, datetime.datetime(2024, 11, 22, 21, 50, 59, 356130))
+2024-11-23 00:50:25,150 - __main__ - INFO - 
+Sample Equipment Data:
+2024-11-23 00:50:25,151 - __main__ - INFO - (1, 'Ventilator - Dept 1', 'Ventilator', 1, 'available', None, None, datetime.datetime(2024, 11, 22, 21, 50, 59, 356130), datetime.datetime(2024, 11, 22, 21, 50, 59, 356130))
+2024-11-23 00:50:25,151 - __main__ - INFO - (2, 'X-Ray Machine - Dept 1', 'X-Ray Machine', 1, 'available', None, None, datetime.datetime(2024, 11, 22, 21, 50, 59, 356130), datetime.datetime(2024, 11, 22, 21, 50, 59, 356130))
+2024-11-23 00:50:25,151 - __main__ - INFO - (3, 'ECG Monitor - Dept 1', 'ECG Monitor', 1, 'available', None, None, datetime.datetime(2024, 11, 22, 21, 50, 59, 356130), datetime.datetime(2024, 11, 22, 21, 50, 59, 356130))
+2024-11-23 00:50:38,224 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-11-23 00:50:38,224 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-23 00:50:42,505 - werkzeug - INFO - 127.0.0.1 - - [23/Nov/2024 00:50:42] "GET / HTTP/1.1" 200 -
+2024-11-23 00:51:12,702 - werkzeug - INFO - 127.0.0.1 - - [23/Nov/2024 00:51:12] "GET / HTTP/1.1" 200 -
+2024-11-23 00:52:56,793 - app.database_utils - INFO - Database connection established successfully
+2024-11-23 00:52:56,867 - __main__ - INFO - Number of departments: 4
+2024-11-23 00:52:56,868 - __main__ - INFO - Number of staff members: 4
+2024-11-23 00:52:56,869 - __main__ - INFO - Number of equipment: 19
+2024-11-23 00:52:56,870 - __main__ - INFO - Number of supplies: 4
+2024-11-23 00:52:56,871 - __main__ - INFO - Number of admissions: 47
+2024-11-23 00:52:56,871 - __main__ - INFO - 
+Sample Department Data:
+2024-11-23 00:52:56,872 - __main__ - INFO - (1, 'Emergency', 'First Floor', 20, datetime.datetime(2024, 11, 22, 21, 50, 59, 356130))
+2024-11-23 00:52:56,872 - __main__ - INFO - (2, 'ICU', 'Second Floor', 10, datetime.datetime(2024, 11, 22, 21, 50, 59, 356130))
+2024-11-23 00:52:56,872 - __main__ - INFO - (3, 'General Medicine', 'Third Floor', 30, datetime.datetime(2024, 11, 22, 21, 50, 59, 356130))
+2024-11-23 00:52:56,873 - __main__ - INFO - 
+Sample Equipment Data:
+2024-11-23 00:52:56,873 - __main__ - INFO - (1, 'Ventilator - Dept 1', 'Ventilator', 1, 'available', None, None, datetime.datetime(2024, 11, 22, 21, 50, 59, 356130), datetime.datetime(2024, 11, 22, 21, 50, 59, 356130))
+2024-11-23 00:52:56,873 - __main__ - INFO - (2, 'X-Ray Machine - Dept 1', 'X-Ray Machine', 1, 'available', None, None, datetime.datetime(2024, 11, 22, 21, 50, 59, 356130), datetime.datetime(2024, 11, 22, 21, 50, 59, 356130))
+2024-11-23 00:52:56,873 - __main__ - INFO - (3, 'ECG Monitor - Dept 1', 'ECG Monitor', 1, 'available', None, None, datetime.datetime(2024, 11, 22, 21, 50, 59, 356130), datetime.datetime(2024, 11, 22, 21, 50, 59, 356130))
