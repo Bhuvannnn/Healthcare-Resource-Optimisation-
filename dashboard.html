@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthcare Resource Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold mb-8">Healthcare Resource Dashboard</h1>
+
+        <!-- Alerts Section -->
+        <div class="mb-8 bg-white rounded-lg shadow p-6">
+            <h2 class="text-xl font-semibold mb-4">System Alerts</h2>
+            <div id="alerts-container">
+                <!-- Alerts will be inserted here -->
+            </div>
+        </div>
+
+        <!-- Charts Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Bed Occupancy Chart -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <h2 class="text-xl font-semibold mb-4">Bed Occupancy</h2>
+                <div class="chart-container">
+                    <canvas id="bedOccupancyChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Staff Workload Chart -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <h2 class="text-xl font-semibold mb-4">Staff Workload</h2>
+                <div class="chart-container">
+                    <canvas id="staffWorkloadChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Equipment Usage Chart -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <h2 class="text-xl font-semibold mb-4">Equipment Usage</h2>
+                <div class="chart-container">
+                    <canvas id="equipmentChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Supply Status Chart -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <h2 class="text-xl font-semibold mb-4">Supply Status</h2>
+                <div class="chart-container">
+                    <canvas id="supplyChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Fetch and display dashboard data
+        async function fetchDashboardData() {
+            try {
+                const response = await fetch('http://localhost:5000/api/dashboard/summary');
+                const data = await response.json();
+                
+                // Update charts
+                updateBedOccupancyChart(data.bed_occupancy);
+                updateStaffWorkloadChart(data.staff_workload);
+                updateEquipmentChart(data.equipment_utilization);
+                displayAlerts(data.alerts);
+            } catch (error) {
+                console.error('Error fetching dashboard data:', error);
+            }
+        }
+
+        // Create and update charts
+        function updateBedOccupancyChart(data) {
+            const ctx = document.getElementById('bedOccupancyChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(data.trend_by_department),
+                    datasets: [{
+                        label: 'Occupancy Rate (%)',
+                        data: Object.values(data.trend_by_department),
+                        backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateStaffWorkloadChart(data) {
+            const ctx = document.getElementById('staffWorkloadChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: Object.keys(data),
+                    datasets: [{
+                        data: Object.values(data).map(dept => dept.total_hours),
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.5)',
+                            'rgba(54, 162, 235, 0.5)',
+                            'rgba(255, 206, 86, 0.5)',
+                            'rgba(75, 192, 192, 0.5)'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+        }
+
+        function updateEquipmentChart(data) {
+            const ctx = document.getElementById('equipmentChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: Object.keys(data),
+                    datasets: [{
+                        data: Object.values(data).map(eq => eq.total_uses),
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.5)',
+                            'rgba(54, 162, 235, 0.5)',
+                            'rgba(255, 206, 86, 0.5)',
+                            'rgba(75, 192, 192, 0.5)',
+                            'rgba(153, 102, 255, 0.5)',
+                            'rgba(255, 159, 64, 0.5)'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+        }
+
+        function displayAlerts(alerts) {
+            const container = document.getElementById('alerts-container');
+            container.innerHTML = '';
+
+            const alertColors = {
+                critical: 'bg-red-100 border-red-500 text-red-700',
+                warning: 'bg-yellow-100 border-yellow-500 text-yellow-700',
+                info: 'bg-blue-100 border-blue-500 text-blue-700'
+            };
+
+            Object.entries(alerts).forEach(([level, messages]) => {
+                messages.forEach(message => {
+                    const alertDiv = document.createElement('div');
+                    alertDiv.className = `${alertColors[level]} border-l-4 p-4 mb-4`;
+                    alertDiv.textContent = message;
+                    container.appendChild(alertDiv);
+                });
+            });
+        }
+
+        // Initial load
+        fetchDashboardData();
+
+        // Refresh every 5 minutes
+        setInterval(fetchDashboardData, 300000);
+    </script>
+</body>
+</html>

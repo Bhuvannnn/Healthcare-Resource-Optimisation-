@@ -1,0 +1,684 @@
+2024-11-22 17:33:05,313 - __main__ - INFO - Database connection established successfully
+2024-11-22 17:33:53,146 - database_utils - INFO - Database connection established successfully
+2024-11-22 17:33:53,146 - __main__ - INFO - Adding departments...
+2024-11-22 17:33:53,187 - __main__ - INFO - Adding staff members...
+2024-11-22 17:33:53,191 - __main__ - INFO - Added staff member with ID: 1
+2024-11-22 17:33:53,192 - __main__ - INFO - Added staff member with ID: 2
+2024-11-22 17:33:53,192 - __main__ - INFO - Added staff member with ID: 3
+2024-11-22 17:33:53,193 - __main__ - INFO - Added staff member with ID: 4
+2024-11-22 17:33:53,193 - __main__ - INFO - Adding equipment...
+2024-11-22 17:33:53,196 - database_utils - ERROR - Query execution failed: (psycopg2.errors.ForeignKeyViolation) insert or update on table "equipment" violates foreign key constraint "equipment_department_id_fkey"
+DETAIL:  Key (department_id)=(1) is not present in table "departments".
+
+[SQL: 
+        INSERT INTO equipment (name, type, department_id, status)
+        VALUES (%(name)s, %(type)s, %(department_id)s, 'available')
+        RETURNING equipment_id
+        ]
+[parameters: {'name': 'Ventilator 1', 'type': 'Ventilator', 'department_id': 1}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2024-11-22 17:33:53,196 - __main__ - ERROR - Error inserting sample data: (psycopg2.errors.ForeignKeyViolation) insert or update on table "equipment" violates foreign key constraint "equipment_department_id_fkey"
+DETAIL:  Key (department_id)=(1) is not present in table "departments".
+
+[SQL: 
+        INSERT INTO equipment (name, type, department_id, status)
+        VALUES (%(name)s, %(type)s, %(department_id)s, 'available')
+        RETURNING equipment_id
+        ]
+[parameters: {'name': 'Ventilator 1', 'type': 'Ventilator', 'department_id': 1}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2024-11-22 17:36:57,071 - database_utils - INFO - Database connection established successfully
+2024-11-22 17:36:57,071 - __main__ - INFO - Clearing existing data...
+2024-11-22 17:36:57,158 - __main__ - INFO - Adding departments...
+2024-11-22 17:36:57,161 - __main__ - INFO - Added department Emergency with ID: 5
+2024-11-22 17:36:57,162 - __main__ - INFO - Added department ICU with ID: 6
+2024-11-22 17:36:57,162 - __main__ - INFO - Added department General Medicine with ID: 7
+2024-11-22 17:36:57,163 - __main__ - INFO - Added department Pediatrics with ID: 8
+2024-11-22 17:36:57,163 - __main__ - INFO - Adding staff members...
+2024-11-22 17:36:57,164 - __main__ - INFO - Added staff member with ID: 5
+2024-11-22 17:36:57,165 - __main__ - INFO - Added staff member with ID: 6
+2024-11-22 17:36:57,165 - __main__ - INFO - Added staff member with ID: 7
+2024-11-22 17:36:57,165 - __main__ - INFO - Added staff member with ID: 8
+2024-11-22 17:36:57,166 - __main__ - INFO - Adding equipment...
+2024-11-22 17:36:57,169 - database_utils - ERROR - Query execution failed: (psycopg2.errors.ForeignKeyViolation) insert or update on table "equipment" violates foreign key constraint "equipment_department_id_fkey"
+DETAIL:  Key (department_id)=(5) is not present in table "departments".
+
+[SQL: 
+                INSERT INTO equipment (name, type, department_id, status)
+                VALUES (%(name)s, %(type)s, %(department_id)s, 'available')
+                RETURNING equipment_id;
+                ]
+[parameters: {'name': 'Ventilator 5', 'type': 'Ventilator', 'department_id': 5}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2024-11-22 17:36:57,169 - __main__ - ERROR - Error inserting sample data: (psycopg2.errors.ForeignKeyViolation) insert or update on table "equipment" violates foreign key constraint "equipment_department_id_fkey"
+DETAIL:  Key (department_id)=(5) is not present in table "departments".
+
+[SQL: 
+                INSERT INTO equipment (name, type, department_id, status)
+                VALUES (%(name)s, %(type)s, %(department_id)s, 'available')
+                RETURNING equipment_id;
+                ]
+[parameters: {'name': 'Ventilator 5', 'type': 'Ventilator', 'department_id': 5}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2024-11-22 17:37:07,663 - database_utils - INFO - Database connection established successfully
+2024-11-22 17:37:07,665 - __main__ - INFO - Clearing existing data...
+2024-11-22 17:37:07,708 - __main__ - INFO - Adding departments...
+2024-11-22 17:37:07,709 - __main__ - INFO - Added department Emergency with ID: 9
+2024-11-22 17:37:07,710 - __main__ - INFO - Added department ICU with ID: 10
+2024-11-22 17:37:07,711 - __main__ - INFO - Added department General Medicine with ID: 11
+2024-11-22 17:37:07,711 - __main__ - INFO - Added department Pediatrics with ID: 12
+2024-11-22 17:37:07,711 - __main__ - INFO - Adding staff members...
+2024-11-22 17:37:07,712 - __main__ - INFO - Added staff member with ID: 9
+2024-11-22 17:37:07,713 - __main__ - INFO - Added staff member with ID: 10
+2024-11-22 17:37:07,713 - __main__ - INFO - Added staff member with ID: 11
+2024-11-22 17:37:07,714 - __main__ - INFO - Added staff member with ID: 12
+2024-11-22 17:37:07,714 - __main__ - INFO - Adding equipment...
+2024-11-22 17:37:07,715 - database_utils - ERROR - Query execution failed: (psycopg2.errors.ForeignKeyViolation) insert or update on table "equipment" violates foreign key constraint "equipment_department_id_fkey"
+DETAIL:  Key (department_id)=(9) is not present in table "departments".
+
+[SQL: 
+                INSERT INTO equipment (name, type, department_id, status)
+                VALUES (%(name)s, %(type)s, %(department_id)s, 'available')
+                RETURNING equipment_id;
+                ]
+[parameters: {'name': 'Ventilator 9', 'type': 'Ventilator', 'department_id': 9}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2024-11-22 17:37:07,715 - __main__ - ERROR - Error inserting sample data: (psycopg2.errors.ForeignKeyViolation) insert or update on table "equipment" violates foreign key constraint "equipment_department_id_fkey"
+DETAIL:  Key (department_id)=(9) is not present in table "departments".
+
+[SQL: 
+                INSERT INTO equipment (name, type, department_id, status)
+                VALUES (%(name)s, %(type)s, %(department_id)s, 'available')
+                RETURNING equipment_id;
+                ]
+[parameters: {'name': 'Ventilator 9', 'type': 'Ventilator', 'department_id': 9}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2024-11-22 17:43:47,138 - database_utils - INFO - Database connection established successfully
+2024-11-22 17:43:47,138 - __main__ - INFO - Clearing existing data...
+2024-11-22 17:43:47,214 - __main__ - INFO - Adding departments...
+2024-11-22 17:43:47,218 - __main__ - INFO - Added department Emergency with ID: 13
+2024-11-22 17:43:47,219 - __main__ - INFO - Added department ICU with ID: 14
+2024-11-22 17:43:47,219 - __main__ - INFO - Added department General Medicine with ID: 15
+2024-11-22 17:43:47,220 - __main__ - INFO - Added department Pediatrics with ID: 16
+2024-11-22 17:43:47,220 - __main__ - INFO - Adding staff members...
+2024-11-22 17:43:47,222 - __main__ - INFO - Added staff member with ID: 13 to department Emergency
+2024-11-22 17:43:47,222 - __main__ - INFO - Added staff member with ID: 14 to department ICU
+2024-11-22 17:43:47,223 - __main__ - INFO - Added staff member with ID: 15 to department General Medicine
+2024-11-22 17:43:47,223 - __main__ - INFO - Added staff member with ID: 16 to department Pediatrics
+2024-11-22 17:43:47,223 - __main__ - INFO - Adding equipment...
+2024-11-22 17:43:47,227 - database_utils - ERROR - Query execution failed: (psycopg2.errors.ForeignKeyViolation) insert or update on table "equipment" violates foreign key constraint "equipment_department_id_fkey"
+DETAIL:  Key (department_id)=(13) is not present in table "departments".
+
+[SQL: 
+                INSERT INTO equipment (name, type, department_id, status)
+                VALUES (%(name)s, %(type)s, %(department_id)s, 'available')
+                RETURNING equipment_id;
+                ]
+[parameters: {'name': 'Ventilator', 'type': 'Ventilator', 'department_id': 13}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2024-11-22 17:43:47,227 - __main__ - ERROR - Error inserting sample data: (psycopg2.errors.ForeignKeyViolation) insert or update on table "equipment" violates foreign key constraint "equipment_department_id_fkey"
+DETAIL:  Key (department_id)=(13) is not present in table "departments".
+
+[SQL: 
+                INSERT INTO equipment (name, type, department_id, status)
+                VALUES (%(name)s, %(type)s, %(department_id)s, 'available')
+                RETURNING equipment_id;
+                ]
+[parameters: {'name': 'Ventilator', 'type': 'Ventilator', 'department_id': 13}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2024-11-22 18:01:08,467 - database_utils - INFO - Database connection established successfully
+2024-11-22 18:01:08,735 - __main__ - INFO - Database reset completed
+2024-11-22 18:01:08,736 - __main__ - INFO - Adding departments...
+2024-11-22 18:01:08,742 - __main__ - INFO - Added department Emergency with ID: 1
+2024-11-22 18:01:08,742 - __main__ - INFO - Added department ICU with ID: 2
+2024-11-22 18:01:08,743 - __main__ - INFO - Added department General Medicine with ID: 3
+2024-11-22 18:01:08,743 - __main__ - INFO - Added department Pediatrics with ID: 4
+2024-11-22 18:01:08,743 - __main__ - INFO - Adding staff...
+2024-11-22 18:01:08,745 - __main__ - INFO - Added staff member with ID: 1
+2024-11-22 18:01:08,745 - __main__ - INFO - Added staff member with ID: 2
+2024-11-22 18:01:08,746 - __main__ - INFO - Added staff member with ID: 3
+2024-11-22 18:01:08,746 - __main__ - INFO - Added staff member with ID: 4
+2024-11-22 18:01:08,746 - __main__ - INFO - Adding equipment...
+2024-11-22 18:01:08,749 - __main__ - INFO - Added Ventilator to department 1 with ID: 1
+2024-11-22 18:01:08,750 - __main__ - INFO - Added X-Ray Machine to department 1 with ID: 2
+2024-11-22 18:01:08,750 - __main__ - INFO - Added ECG Monitor to department 1 with ID: 3
+2024-11-22 18:01:08,751 - __main__ - INFO - Added Defibrillator to department 1 with ID: 4
+2024-11-22 18:01:08,752 - __main__ - INFO - Added Ventilator to department 2 with ID: 5
+2024-11-22 18:01:08,752 - __main__ - INFO - Added X-Ray Machine to department 2 with ID: 6
+2024-11-22 18:01:08,753 - __main__ - INFO - Added ECG Monitor to department 2 with ID: 7
+2024-11-22 18:01:08,754 - __main__ - INFO - Added Defibrillator to department 2 with ID: 8
+2024-11-22 18:01:08,754 - __main__ - INFO - Added Ventilator to department 3 with ID: 9
+2024-11-22 18:01:08,754 - __main__ - INFO - Added X-Ray Machine to department 3 with ID: 10
+2024-11-22 18:01:08,755 - __main__ - INFO - Added ECG Monitor to department 3 with ID: 11
+2024-11-22 18:01:08,755 - __main__ - INFO - Added Defibrillator to department 3 with ID: 12
+2024-11-22 18:01:08,755 - __main__ - INFO - Added Ventilator to department 4 with ID: 13
+2024-11-22 18:01:08,756 - __main__ - INFO - Added X-Ray Machine to department 4 with ID: 14
+2024-11-22 18:01:08,756 - __main__ - INFO - Added ECG Monitor to department 4 with ID: 15
+2024-11-22 18:01:08,756 - __main__ - INFO - Added Defibrillator to department 4 with ID: 16
+2024-11-22 18:01:08,756 - __main__ - INFO - Adding beds...
+2024-11-22 18:01:08,758 - __main__ - INFO - Added bed 1 to department 1
+2024-11-22 18:01:08,758 - __main__ - INFO - Added bed 2 to department 1
+2024-11-22 18:01:08,759 - __main__ - INFO - Added bed 3 to department 1
+2024-11-22 18:01:08,760 - __main__ - INFO - Added bed 4 to department 1
+2024-11-22 18:01:08,760 - __main__ - INFO - Added bed 5 to department 1
+2024-11-22 18:01:08,761 - __main__ - INFO - Added bed 6 to department 1
+2024-11-22 18:01:08,761 - __main__ - INFO - Added bed 7 to department 1
+2024-11-22 18:01:08,762 - __main__ - INFO - Added bed 8 to department 1
+2024-11-22 18:01:08,762 - __main__ - INFO - Added bed 9 to department 1
+2024-11-22 18:01:08,762 - __main__ - INFO - Added bed 10 to department 1
+2024-11-22 18:01:08,763 - __main__ - INFO - Added bed 11 to department 1
+2024-11-22 18:01:08,763 - __main__ - INFO - Added bed 12 to department 1
+2024-11-22 18:01:08,763 - __main__ - INFO - Added bed 13 to department 1
+2024-11-22 18:01:08,764 - __main__ - INFO - Added bed 14 to department 1
+2024-11-22 18:01:08,764 - __main__ - INFO - Added bed 15 to department 1
+2024-11-22 18:01:08,765 - __main__ - INFO - Added bed 16 to department 1
+2024-11-22 18:01:08,765 - __main__ - INFO - Added bed 17 to department 1
+2024-11-22 18:01:08,765 - __main__ - INFO - Added bed 18 to department 1
+2024-11-22 18:01:08,766 - __main__ - INFO - Added bed 19 to department 1
+2024-11-22 18:01:08,766 - __main__ - INFO - Added bed 20 to department 1
+2024-11-22 18:01:08,767 - __main__ - INFO - Added bed 1 to department 2
+2024-11-22 18:01:08,767 - __main__ - INFO - Added bed 2 to department 2
+2024-11-22 18:01:08,767 - __main__ - INFO - Added bed 3 to department 2
+2024-11-22 18:01:08,767 - __main__ - INFO - Added bed 4 to department 2
+2024-11-22 18:01:08,768 - __main__ - INFO - Added bed 5 to department 2
+2024-11-22 18:01:08,769 - __main__ - INFO - Added bed 6 to department 2
+2024-11-22 18:01:08,769 - __main__ - INFO - Added bed 7 to department 2
+2024-11-22 18:01:08,769 - __main__ - INFO - Added bed 8 to department 2
+2024-11-22 18:01:08,770 - __main__ - INFO - Added bed 9 to department 2
+2024-11-22 18:01:08,770 - __main__ - INFO - Added bed 10 to department 2
+2024-11-22 18:01:08,770 - __main__ - INFO - Added bed 1 to department 3
+2024-11-22 18:01:08,770 - __main__ - INFO - Added bed 2 to department 3
+2024-11-22 18:01:08,771 - __main__ - INFO - Added bed 3 to department 3
+2024-11-22 18:01:08,772 - __main__ - INFO - Added bed 4 to department 3
+2024-11-22 18:01:08,773 - __main__ - INFO - Added bed 5 to department 3
+2024-11-22 18:01:08,773 - __main__ - INFO - Added bed 6 to department 3
+2024-11-22 18:01:08,773 - __main__ - INFO - Added bed 7 to department 3
+2024-11-22 18:01:08,773 - __main__ - INFO - Added bed 8 to department 3
+2024-11-22 18:01:08,774 - __main__ - INFO - Added bed 9 to department 3
+2024-11-22 18:01:08,774 - __main__ - INFO - Added bed 10 to department 3
+2024-11-22 18:01:08,774 - __main__ - INFO - Added bed 11 to department 3
+2024-11-22 18:01:08,775 - __main__ - INFO - Added bed 12 to department 3
+2024-11-22 18:01:08,775 - __main__ - INFO - Added bed 13 to department 3
+2024-11-22 18:01:08,775 - __main__ - INFO - Added bed 14 to department 3
+2024-11-22 18:01:08,775 - __main__ - INFO - Added bed 15 to department 3
+2024-11-22 18:01:08,776 - __main__ - INFO - Added bed 16 to department 3
+2024-11-22 18:01:08,776 - __main__ - INFO - Added bed 17 to department 3
+2024-11-22 18:01:08,776 - __main__ - INFO - Added bed 18 to department 3
+2024-11-22 18:01:08,777 - __main__ - INFO - Added bed 19 to department 3
+2024-11-22 18:01:08,777 - __main__ - INFO - Added bed 20 to department 3
+2024-11-22 18:01:08,777 - __main__ - INFO - Added bed 21 to department 3
+2024-11-22 18:01:08,778 - __main__ - INFO - Added bed 22 to department 3
+2024-11-22 18:01:08,779 - __main__ - INFO - Added bed 23 to department 3
+2024-11-22 18:01:08,780 - __main__ - INFO - Added bed 24 to department 3
+2024-11-22 18:01:08,780 - __main__ - INFO - Added bed 25 to department 3
+2024-11-22 18:01:08,781 - __main__ - INFO - Added bed 26 to department 3
+2024-11-22 18:01:08,781 - __main__ - INFO - Added bed 27 to department 3
+2024-11-22 18:01:08,781 - __main__ - INFO - Added bed 28 to department 3
+2024-11-22 18:01:08,782 - __main__ - INFO - Added bed 29 to department 3
+2024-11-22 18:01:08,782 - __main__ - INFO - Added bed 30 to department 3
+2024-11-22 18:01:08,782 - __main__ - INFO - Added bed 1 to department 4
+2024-11-22 18:01:08,782 - __main__ - INFO - Added bed 2 to department 4
+2024-11-22 18:01:08,783 - __main__ - INFO - Added bed 3 to department 4
+2024-11-22 18:01:08,783 - __main__ - INFO - Added bed 4 to department 4
+2024-11-22 18:01:08,783 - __main__ - INFO - Added bed 5 to department 4
+2024-11-22 18:01:08,783 - __main__ - INFO - Added bed 6 to department 4
+2024-11-22 18:01:08,784 - __main__ - INFO - Added bed 7 to department 4
+2024-11-22 18:01:08,784 - __main__ - INFO - Added bed 8 to department 4
+2024-11-22 18:01:08,784 - __main__ - INFO - Added bed 9 to department 4
+2024-11-22 18:01:08,785 - __main__ - INFO - Added bed 10 to department 4
+2024-11-22 18:01:08,785 - __main__ - INFO - Added bed 11 to department 4
+2024-11-22 18:01:08,785 - __main__ - INFO - Added bed 12 to department 4
+2024-11-22 18:01:08,786 - __main__ - INFO - Added bed 13 to department 4
+2024-11-22 18:01:08,786 - __main__ - INFO - Added bed 14 to department 4
+2024-11-22 18:01:08,786 - __main__ - INFO - Added bed 15 to department 4
+2024-11-22 18:01:08,786 - __main__ - INFO - Adding supplies...
+2024-11-22 18:01:08,787 - __main__ - INFO - Added supply Surgical Masks with ID: 1
+2024-11-22 18:01:08,787 - __main__ - INFO - Added supply Hand Sanitizer with ID: 2
+2024-11-22 18:01:08,788 - __main__ - INFO - Added supply Surgical Gloves with ID: 3
+2024-11-22 18:01:08,789 - __main__ - INFO - Added supply Bandages with ID: 4
+2024-11-22 18:01:08,790 - __main__ - INFO - Total departments: 4
+2024-11-22 18:01:08,790 - __main__ - INFO - Total staff: 4
+2024-11-22 18:01:08,790 - __main__ - INFO - Total equipment: 16
+2024-11-22 18:01:08,791 - __main__ - INFO - Total beds: 75
+2024-11-22 18:01:08,791 - __main__ - INFO - Total supplies: 4
+2024-11-22 18:01:08,792 - __main__ - INFO - Sample data inserted successfully!
+2024-11-22 19:33:24,320 - database_utils - INFO - Database connection established successfully
+2024-11-22 19:33:24,321 - __main__ - INFO - Adding test patients...
+2024-11-22 19:33:24,514 - patient_management - INFO - Added new patient: Alice Smith with ID: 1
+2024-11-22 19:33:24,515 - __main__ - INFO - Added patient with ID: 1
+2024-11-22 19:33:24,516 - patient_management - INFO - Added new patient: Bob Johnson with ID: 2
+2024-11-22 19:33:24,517 - __main__ - INFO - Added patient with ID: 2
+2024-11-22 19:33:24,517 - patient_management - INFO - Added new patient: Carol Williams with ID: 3
+2024-11-22 19:33:24,517 - __main__ - INFO - Added patient with ID: 3
+2024-11-22 19:33:24,517 - __main__ - INFO - 
+Checking initial department status...
+2024-11-22 19:33:24,527 - __main__ - INFO - Department Emergency: 20 beds available
+2024-11-22 19:33:24,529 - __main__ - INFO - Department ICU: 10 beds available
+2024-11-22 19:33:24,530 - __main__ - INFO - Department General Medicine: 30 beds available
+2024-11-22 19:33:24,531 - __main__ - INFO - Department Pediatrics: 15 beds available
+2024-11-22 19:33:24,531 - __main__ - INFO - 
+Testing patient admissions...
+2024-11-22 19:33:24,532 - __main__ - ERROR - Failed to admit patient 1: Patient with ID 1 not found
+2024-11-22 19:33:24,533 - __main__ - ERROR - Failed to admit patient 2: Patient with ID 2 not found
+2024-11-22 19:33:24,533 - __main__ - ERROR - Failed to admit patient 3: Patient with ID 3 not found
+2024-11-22 19:33:24,533 - __main__ - INFO - 
+Checking department status after admissions...
+2024-11-22 19:33:24,534 - __main__ - INFO - Department Emergency: 0 beds occupied
+2024-11-22 19:33:24,535 - __main__ - INFO - Department ICU: 0 beds occupied
+2024-11-22 19:33:24,536 - __main__ - INFO - Department General Medicine: 0 beds occupied
+2024-11-22 19:33:24,537 - __main__ - INFO - Department Pediatrics: 0 beds occupied
+2024-11-22 19:33:24,537 - __main__ - INFO - 
+Checking patient history...
+2024-11-22 19:33:24,537 - __main__ - INFO - Patient 1 has 0 admission records
+2024-11-22 19:33:24,538 - __main__ - INFO - Patient 2 has 0 admission records
+2024-11-22 19:33:24,538 - __main__ - INFO - Patient 3 has 0 admission records
+2024-11-22 19:33:24,539 - __main__ - INFO - 
+Testing patient discharge...
+2024-11-22 19:33:24,539 - __main__ - INFO - 
+Final department status check...
+2024-11-22 19:33:24,539 - __main__ - INFO - Department Emergency: 20 available, 0 occupied, Occupancy rate: 0.0%
+2024-11-22 19:33:24,540 - __main__ - INFO - Department ICU: 10 available, 0 occupied, Occupancy rate: 0.0%
+2024-11-22 19:33:24,541 - __main__ - INFO - Department General Medicine: 30 available, 0 occupied, Occupancy rate: 0.0%
+2024-11-22 19:33:24,542 - __main__ - INFO - Department Pediatrics: 15 available, 0 occupied, Occupancy rate: 0.0%
+2024-11-22 19:33:24,542 - __main__ - INFO - 
+All tests completed successfully!
+2024-11-22 19:38:06,533 - database_utils - INFO - Database connection established successfully
+2024-11-22 19:38:06,591 - __main__ - INFO - 
+Adding test patients...
+2024-11-22 19:38:06,596 - patient_management - INFO - Added new patient: Alice Smith with ID: 1
+2024-11-22 19:38:06,596 - __main__ - INFO - Added patient with ID: 1
+2024-11-22 19:38:06,597 - patient_management - INFO - Added new patient: Bob Johnson with ID: 2
+2024-11-22 19:38:06,597 - __main__ - INFO - Added patient with ID: 2
+2024-11-22 19:38:06,598 - patient_management - INFO - Added new patient: Carol Williams with ID: 3
+2024-11-22 19:38:06,598 - __main__ - INFO - Added patient with ID: 3
+2024-11-22 19:38:06,599 - __main__ - INFO - Patient 1 exists in system: True
+2024-11-22 19:38:06,599 - __main__ - INFO - Patient 2 exists in system: True
+2024-11-22 19:38:06,600 - __main__ - INFO - Patient 3 exists in system: True
+2024-11-22 19:38:06,600 - __main__ - INFO - 
+Checking initial department status...
+2024-11-22 19:38:06,603 - __main__ - INFO - Department Emergency: 20 beds available
+2024-11-22 19:38:06,604 - __main__ - INFO - Department ICU: 10 beds available
+2024-11-22 19:38:06,605 - __main__ - INFO - Department General Medicine: 30 beds available
+2024-11-22 19:38:06,606 - __main__ - INFO - Department Pediatrics: 15 beds available
+2024-11-22 19:38:06,606 - __main__ - INFO - 
+Testing patient admissions...
+2024-11-22 19:38:06,611 - __main__ - INFO - Successfully admitted patient 1 to department 1
+2024-11-22 19:38:06,613 - __main__ - INFO - Successfully admitted patient 2 to department 2
+2024-11-22 19:38:06,614 - __main__ - INFO - Successfully admitted patient 3 to department 3
+2024-11-22 19:38:06,614 - __main__ - INFO - 
+Verifying admissions...
+2024-11-22 19:38:06,615 - __main__ - INFO - Patient 1 admission records: [{'admission_id': 1, 'admission_date': datetime.datetime(2024, 11, 22, 19, 38, 6, 606460), 'discharge_date': None, 'admission_type': 'Emergency', 'department': 'Emergency', 'status': 'active'}]
+2024-11-22 19:38:06,616 - __main__ - INFO - Patient 2 admission records: [{'admission_id': 2, 'admission_date': datetime.datetime(2024, 11, 22, 19, 38, 6, 611773), 'discharge_date': None, 'admission_type': 'Regular', 'department': 'ICU', 'status': 'active'}]
+2024-11-22 19:38:06,616 - __main__ - INFO - Patient 3 admission records: [{'admission_id': 3, 'admission_date': datetime.datetime(2024, 11, 22, 19, 38, 6, 613568), 'discharge_date': None, 'admission_type': 'Regular', 'department': 'General Medicine', 'status': 'active'}]
+2024-11-22 19:38:06,616 - __main__ - INFO - 
+Checking department status after admissions...
+2024-11-22 19:38:06,617 - __main__ - INFO - Department Emergency: 1 occupied, 19 available
+2024-11-22 19:38:06,618 - __main__ - INFO - Department ICU: 1 occupied, 9 available
+2024-11-22 19:38:06,619 - __main__ - INFO - Department General Medicine: 1 occupied, 29 available
+2024-11-22 19:38:06,620 - __main__ - INFO - Department Pediatrics: 0 occupied, 15 available
+2024-11-22 19:38:06,620 - __main__ - INFO - 
+Testing patient discharge...
+2024-11-22 19:38:06,621 - __main__ - INFO - Successfully discharged patient from admission 1
+2024-11-22 19:38:06,622 - __main__ - INFO - Successfully discharged patient from admission 2
+2024-11-22 19:38:06,623 - __main__ - INFO - Successfully discharged patient from admission 3
+2024-11-22 19:38:06,623 - __main__ - INFO - 
+Final department status check...
+2024-11-22 19:38:06,624 - __main__ - INFO - Department Emergency: 20 available, 0 occupied, Occupancy rate: 0.0%
+2024-11-22 19:38:06,624 - __main__ - INFO - Department ICU: 10 available, 0 occupied, Occupancy rate: 0.0%
+2024-11-22 19:38:06,625 - __main__ - INFO - Department General Medicine: 30 available, 0 occupied, Occupancy rate: 0.0%
+2024-11-22 19:38:06,626 - __main__ - INFO - Department Pediatrics: 15 available, 0 occupied, Occupancy rate: 0.0%
+2024-11-22 19:38:06,626 - __main__ - INFO - 
+All tests completed successfully!
+2024-11-22 19:43:09,755 - database_utils - INFO - Database connection established successfully
+2024-11-22 19:43:09,755 - __main__ - INFO - 
+Testing Staff Scheduling System...
+2024-11-22 19:43:09,836 - staff_scheduling - INFO - Added new staff member: John Doe with ID: 5
+2024-11-22 19:43:09,837 - __main__ - INFO - Added staff member: John Doe with ID: 5
+2024-11-22 19:43:09,837 - staff_scheduling - INFO - Added new staff member: Jane Smith with ID: 6
+2024-11-22 19:43:09,837 - __main__ - INFO - Added staff member: Jane Smith with ID: 6
+2024-11-22 19:43:09,838 - staff_scheduling - INFO - Added new staff member: Mike Johnson with ID: 7
+2024-11-22 19:43:09,838 - __main__ - INFO - Added staff member: Mike Johnson with ID: 7
+2024-11-22 19:43:09,838 - __main__ - INFO - 
+Scheduling shifts...
+2024-11-22 19:43:09,847 - staff_scheduling - INFO - Scheduled shift 1 for staff member 5
+2024-11-22 19:43:09,848 - __main__ - INFO - Scheduled shift 1 for staff 5
+2024-11-22 19:43:09,849 - staff_scheduling - INFO - Scheduled shift 2 for staff member 5
+2024-11-22 19:43:09,849 - __main__ - INFO - Scheduled afternoon shift 2 for staff 5
+2024-11-22 19:43:09,851 - staff_scheduling - INFO - Scheduled shift 3 for staff member 6
+2024-11-22 19:43:09,851 - __main__ - INFO - Scheduled shift 3 for staff 6
+2024-11-22 19:43:09,852 - staff_scheduling - INFO - Scheduled shift 4 for staff member 6
+2024-11-22 19:43:09,852 - __main__ - INFO - Scheduled afternoon shift 4 for staff 6
+2024-11-22 19:43:09,853 - staff_scheduling - INFO - Scheduled shift 5 for staff member 7
+2024-11-22 19:43:09,853 - __main__ - INFO - Scheduled shift 5 for staff 7
+2024-11-22 19:43:09,854 - staff_scheduling - INFO - Scheduled shift 6 for staff member 7
+2024-11-22 19:43:09,854 - __main__ - INFO - Scheduled afternoon shift 6 for staff 7
+2024-11-22 19:43:09,854 - __main__ - INFO - 
+Retrieving schedules...
+2024-11-22 19:43:09,855 - __main__ - INFO - Staff 5 has 2 scheduled shifts
+2024-11-22 19:43:09,856 - __main__ - INFO - Staff 6 has 2 scheduled shifts
+2024-11-22 19:43:09,856 - __main__ - INFO - Staff 7 has 2 scheduled shifts
+2024-11-22 19:43:09,856 - __main__ - INFO - 
+Checking department schedule...
+2024-11-22 19:43:09,857 - __main__ - INFO - Department has 3 staff scheduled for 2024-11-23
+2024-11-22 19:43:09,857 - __main__ - INFO - 
+Analyzing staff workload...
+2024-11-22 19:43:09,861 - __main__ - INFO - Staff 5 workload: {'total_shifts': 2, 'total_hours': Decimal('16.00'), 'completed_shifts': 0, 'cancelled_shifts': 0, 'average_hours_per_shift': Decimal('8.00')}
+2024-11-22 19:43:09,863 - __main__ - INFO - Staff 6 workload: {'total_shifts': 2, 'total_hours': Decimal('16.00'), 'completed_shifts': 0, 'cancelled_shifts': 0, 'average_hours_per_shift': Decimal('8.00')}
+2024-11-22 19:43:09,864 - __main__ - INFO - Staff 7 workload: {'total_shifts': 2, 'total_hours': Decimal('16.00'), 'completed_shifts': 0, 'cancelled_shifts': 0, 'average_hours_per_shift': Decimal('8.00')}
+2024-11-22 19:43:09,864 - __main__ - INFO - 
+Testing schedule optimization...
+2024-11-22 19:43:09,877 - __main__ - INFO - Schedule optimization results: {'department': 'Emergency', 'date': datetime.datetime(2024, 11, 23, 7, 0), 'current_coverage': {'morning': 3, 'afternoon': 0, 'night': 0}, 'minimum_required': 5, 'recommendations': [{'shift_type': 'morning', 'additional_staff_needed': 2, 'priority': 'High'}, {'shift_type': 'afternoon', 'additional_staff_needed': 5, 'priority': 'High'}, {'shift_type': 'night', 'additional_staff_needed': 5, 'priority': 'High'}]}
+2024-11-22 19:43:09,878 - __main__ - INFO - 
+Updating shift statuses...
+2024-11-22 19:43:09,879 - staff_scheduling - INFO - Updated shift 1 status to completed
+2024-11-22 19:43:09,879 - __main__ - INFO - Updated shift 1 status: True
+2024-11-22 19:43:09,879 - staff_scheduling - INFO - Updated shift 2 status to completed
+2024-11-22 19:43:09,880 - __main__ - INFO - Updated shift 2 status: True
+2024-11-22 19:43:09,880 - __main__ - INFO - 
+All staff scheduling tests completed successfully!
+2024-11-22 20:10:03,143 - database_utils - INFO - Database connection established successfully
+2024-11-22 20:10:03,325 - __main__ - INFO - Adding equipment maintenance table...
+2024-11-22 20:10:03,368 - __main__ - INFO - Adding equipment usage tracking table...
+2024-11-22 20:10:03,368 - __main__ - INFO - Adding new columns to equipment table...
+2024-11-22 20:10:03,715 - __main__ - INFO - Creating indexes...
+2024-11-22 20:10:03,720 - __main__ - INFO - Creating triggers for timestamp updates...
+2024-11-22 20:10:03,724 - __main__ - INFO - Successfully added equipment tracking tables and modifications!
+2024-11-22 20:10:20,436 - database_utils - INFO - Database connection established successfully
+2024-11-22 20:10:20,437 - __main__ - INFO - 
+Testing Equipment Tracking System...
+2024-11-22 20:10:20,469 - equipment_tracking - INFO - Added new equipment: Ventilator X100 with ID: 17
+2024-11-22 20:10:20,470 - __main__ - INFO - Added equipment: Ventilator X100 with ID: 17
+2024-11-22 20:10:20,471 - equipment_tracking - INFO - Added new equipment: MRI Scanner with ID: 18
+2024-11-22 20:10:20,471 - __main__ - INFO - Added equipment: MRI Scanner with ID: 18
+2024-11-22 20:10:20,472 - equipment_tracking - INFO - Added new equipment: Patient Monitor with ID: 19
+2024-11-22 20:10:20,472 - __main__ - INFO - Added equipment: Patient Monitor with ID: 19
+2024-11-22 20:10:20,472 - __main__ - INFO - 
+Testing equipment assignment...
+2024-11-22 20:10:20,481 - __main__ - INFO - Assigned equipment 17: {'usage_id': 1, 'equipment_id': 17, 'department_id': 1, 'start_time': datetime.datetime(2024, 11, 22, 20, 10, 20, 481380)}
+2024-11-22 20:10:20,483 - __main__ - INFO - Assigned equipment 18: {'usage_id': 2, 'equipment_id': 18, 'department_id': 1, 'start_time': datetime.datetime(2024, 11, 22, 20, 10, 20, 483132)}
+2024-11-22 20:10:20,484 - __main__ - INFO - Assigned equipment 19: {'usage_id': 3, 'equipment_id': 19, 'department_id': 1, 'start_time': datetime.datetime(2024, 11, 22, 20, 10, 20, 484361)}
+2024-11-22 20:10:20,484 - __main__ - INFO - 
+Testing status updates...
+2024-11-22 20:10:20,485 - __main__ - ERROR - Test failed: (psycopg2.errors.UndefinedColumn) column "note" of relation "equipment_usage" does not exist
+LINE 3:                         equipment_id, status, note, start_ti...
+                                                      ^
+
+[SQL: 
+                    INSERT INTO equipment_usage (
+                        equipment_id, status, note, start_time
+                    )
+                    VALUES (%(equipment_id)s, %(status)s, %(note)s, CURRENT_TIMESTAMP);
+                    ]
+[parameters: {'equipment_id': 17, 'status': 'in_use', 'note': 'In use for patient care'}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2024-11-22 21:44:10,666 - database_utils - INFO - Database connection established successfully
+2024-11-22 21:44:10,866 - __main__ - INFO - Adding equipment maintenance table...
+2024-11-22 21:44:10,868 - __main__ - INFO - Adding equipment usage tracking table...
+2024-11-22 21:44:10,868 - __main__ - INFO - Adding new columns to equipment table...
+2024-11-22 21:44:10,881 - __main__ - INFO - Creating indexes...
+2024-11-22 21:44:10,883 - __main__ - INFO - Creating triggers for timestamp updates...
+2024-11-22 21:44:10,888 - __main__ - INFO - Successfully added equipment tracking tables and modifications!
+2024-11-22 21:44:21,127 - database_utils - INFO - Database connection established successfully
+2024-11-22 21:44:21,127 - __main__ - INFO - 
+Testing Equipment Tracking System...
+2024-11-22 21:44:21,156 - equipment_tracking - INFO - Added new equipment: Ventilator X100 with ID: 20
+2024-11-22 21:44:21,157 - __main__ - INFO - Added equipment: Ventilator X100 with ID: 20
+2024-11-22 21:44:21,158 - equipment_tracking - INFO - Added new equipment: MRI Scanner with ID: 21
+2024-11-22 21:44:21,158 - __main__ - INFO - Added equipment: MRI Scanner with ID: 21
+2024-11-22 21:44:21,159 - equipment_tracking - INFO - Added new equipment: Patient Monitor with ID: 22
+2024-11-22 21:44:21,159 - __main__ - INFO - Added equipment: Patient Monitor with ID: 22
+2024-11-22 21:44:21,159 - __main__ - INFO - 
+Testing equipment assignment...
+2024-11-22 21:44:21,166 - __main__ - INFO - Assigned equipment 20: {'usage_id': 4, 'equipment_id': 20, 'department_id': 1, 'start_time': datetime.datetime(2024, 11, 22, 21, 44, 21, 166475)}
+2024-11-22 21:44:21,168 - __main__ - INFO - Assigned equipment 21: {'usage_id': 5, 'equipment_id': 21, 'department_id': 1, 'start_time': datetime.datetime(2024, 11, 22, 21, 44, 21, 167875)}
+2024-11-22 21:44:21,169 - __main__ - INFO - Assigned equipment 22: {'usage_id': 6, 'equipment_id': 22, 'department_id': 1, 'start_time': datetime.datetime(2024, 11, 22, 21, 44, 21, 168951)}
+2024-11-22 21:44:21,169 - __main__ - INFO - 
+Testing status updates...
+2024-11-22 21:44:21,170 - __main__ - ERROR - Test failed: (psycopg2.errors.UndefinedColumn) column "notes" of relation "equipment_usage" does not exist
+LINE 3:                         equipment_id, status, notes, start_t...
+                                                      ^
+
+[SQL: 
+                    INSERT INTO equipment_usage (
+                        equipment_id, status, notes, start_time
+                    )
+                    VALUES (%(equipment_id)s, %(status)s, %(notes)s, CURRENT_TIMESTAMP);
+                    ]
+[parameters: {'equipment_id': 20, 'status': 'in_use', 'notes': 'In use for patient care'}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2024-11-22 21:48:50,765 - database_utils - INFO - Database connection established successfully
+2024-11-22 21:48:50,837 - __main__ - INFO - Adding equipment maintenance table...
+2024-11-22 21:48:50,838 - __main__ - INFO - Adding equipment usage tracking table...
+2024-11-22 21:48:50,838 - __main__ - INFO - Adding new columns to equipment table...
+2024-11-22 21:48:50,851 - __main__ - INFO - Creating indexes...
+2024-11-22 21:48:50,852 - __main__ - INFO - Creating triggers for timestamp updates...
+2024-11-22 21:48:50,856 - __main__ - INFO - Successfully added equipment tracking tables and modifications!
+2024-11-22 21:49:00,085 - database_utils - INFO - Database connection established successfully
+2024-11-22 21:49:00,085 - __main__ - INFO - 
+Testing Equipment Tracking System...
+2024-11-22 21:49:00,123 - equipment_tracking - INFO - Added new equipment: Ventilator X100 with ID: 23
+2024-11-22 21:49:00,124 - __main__ - INFO - Added equipment: Ventilator X100 with ID: 23
+2024-11-22 21:49:00,124 - equipment_tracking - INFO - Added new equipment: MRI Scanner with ID: 24
+2024-11-22 21:49:00,125 - __main__ - INFO - Added equipment: MRI Scanner with ID: 24
+2024-11-22 21:49:00,125 - equipment_tracking - INFO - Added new equipment: Patient Monitor with ID: 25
+2024-11-22 21:49:00,125 - __main__ - INFO - Added equipment: Patient Monitor with ID: 25
+2024-11-22 21:49:00,125 - __main__ - INFO - 
+Testing equipment assignment...
+2024-11-22 21:49:00,133 - __main__ - INFO - Assigned equipment 23: {'usage_id': 7, 'equipment_id': 23, 'department_id': 1, 'start_time': datetime.datetime(2024, 11, 22, 21, 49, 0, 132720)}
+2024-11-22 21:49:00,134 - __main__ - INFO - Assigned equipment 24: {'usage_id': 8, 'equipment_id': 24, 'department_id': 1, 'start_time': datetime.datetime(2024, 11, 22, 21, 49, 0, 134411)}
+2024-11-22 21:49:00,135 - __main__ - INFO - Assigned equipment 25: {'usage_id': 9, 'equipment_id': 25, 'department_id': 1, 'start_time': datetime.datetime(2024, 11, 22, 21, 49, 0, 135578)}
+2024-11-22 21:49:00,135 - __main__ - INFO - 
+Testing status updates...
+2024-11-22 21:49:00,141 - __main__ - ERROR - Test failed: (psycopg2.errors.UndefinedColumn) column "notes" of relation "equipment_usage" does not exist
+LINE 3:                         equipment_id, status, notes, start_t...
+                                                      ^
+
+[SQL: 
+                    INSERT INTO equipment_usage (
+                        equipment_id, status, notes, start_time
+                    )
+                    VALUES (%(equipment_id)s, %(status)s, %(notes)s, CURRENT_TIMESTAMP);
+                    ]
+[parameters: {'equipment_id': 23, 'status': 'in_use', 'notes': 'In use for patient care'}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2024-11-22 21:50:50,496 - database_utils - INFO - Database connection established successfully
+2024-11-22 21:50:50,527 - __main__ - INFO - Dropping existing tables...
+2024-11-22 21:50:50,536 - __main__ - INFO - Adding equipment maintenance table...
+2024-11-22 21:50:50,549 - __main__ - INFO - Adding equipment usage tracking table...
+2024-11-22 21:50:50,555 - __main__ - INFO - Adding new columns to equipment table...
+2024-11-22 21:50:50,561 - __main__ - INFO - Creating indexes...
+2024-11-22 21:50:50,565 - __main__ - INFO - Creating triggers for timestamp updates...
+2024-11-22 21:50:50,566 - __main__ - INFO - Successfully added equipment tracking tables and modifications!
+2024-11-22 21:50:59,296 - database_utils - INFO - Database connection established successfully
+2024-11-22 21:50:59,355 - __main__ - INFO - Database reset completed
+2024-11-22 21:50:59,355 - __main__ - INFO - Adding departments...
+2024-11-22 21:50:59,357 - __main__ - INFO - Added department Emergency with ID: 1
+2024-11-22 21:50:59,358 - __main__ - INFO - Added department ICU with ID: 2
+2024-11-22 21:50:59,358 - __main__ - INFO - Added department General Medicine with ID: 3
+2024-11-22 21:50:59,358 - __main__ - INFO - Added department Pediatrics with ID: 4
+2024-11-22 21:50:59,358 - __main__ - INFO - Adding staff...
+2024-11-22 21:50:59,359 - __main__ - INFO - Added staff member with ID: 1
+2024-11-22 21:50:59,359 - __main__ - INFO - Added staff member with ID: 2
+2024-11-22 21:50:59,359 - __main__ - INFO - Added staff member with ID: 3
+2024-11-22 21:50:59,360 - __main__ - INFO - Added staff member with ID: 4
+2024-11-22 21:50:59,360 - __main__ - INFO - Adding equipment...
+2024-11-22 21:50:59,360 - __main__ - INFO - Added Ventilator to department 1 with ID: 1
+2024-11-22 21:50:59,361 - __main__ - INFO - Added X-Ray Machine to department 1 with ID: 2
+2024-11-22 21:50:59,361 - __main__ - INFO - Added ECG Monitor to department 1 with ID: 3
+2024-11-22 21:50:59,361 - __main__ - INFO - Added Defibrillator to department 1 with ID: 4
+2024-11-22 21:50:59,362 - __main__ - INFO - Added Ventilator to department 2 with ID: 5
+2024-11-22 21:50:59,362 - __main__ - INFO - Added X-Ray Machine to department 2 with ID: 6
+2024-11-22 21:50:59,362 - __main__ - INFO - Added ECG Monitor to department 2 with ID: 7
+2024-11-22 21:50:59,362 - __main__ - INFO - Added Defibrillator to department 2 with ID: 8
+2024-11-22 21:50:59,363 - __main__ - INFO - Added Ventilator to department 3 with ID: 9
+2024-11-22 21:50:59,363 - __main__ - INFO - Added X-Ray Machine to department 3 with ID: 10
+2024-11-22 21:50:59,363 - __main__ - INFO - Added ECG Monitor to department 3 with ID: 11
+2024-11-22 21:50:59,363 - __main__ - INFO - Added Defibrillator to department 3 with ID: 12
+2024-11-22 21:50:59,364 - __main__ - INFO - Added Ventilator to department 4 with ID: 13
+2024-11-22 21:50:59,364 - __main__ - INFO - Added X-Ray Machine to department 4 with ID: 14
+2024-11-22 21:50:59,364 - __main__ - INFO - Added ECG Monitor to department 4 with ID: 15
+2024-11-22 21:50:59,364 - __main__ - INFO - Added Defibrillator to department 4 with ID: 16
+2024-11-22 21:50:59,364 - __main__ - INFO - Adding beds...
+2024-11-22 21:50:59,365 - __main__ - INFO - Added bed 1 to department 1
+2024-11-22 21:50:59,365 - __main__ - INFO - Added bed 2 to department 1
+2024-11-22 21:50:59,366 - __main__ - INFO - Added bed 3 to department 1
+2024-11-22 21:50:59,366 - __main__ - INFO - Added bed 4 to department 1
+2024-11-22 21:50:59,366 - __main__ - INFO - Added bed 5 to department 1
+2024-11-22 21:50:59,366 - __main__ - INFO - Added bed 6 to department 1
+2024-11-22 21:50:59,366 - __main__ - INFO - Added bed 7 to department 1
+2024-11-22 21:50:59,367 - __main__ - INFO - Added bed 8 to department 1
+2024-11-22 21:50:59,367 - __main__ - INFO - Added bed 9 to department 1
+2024-11-22 21:50:59,367 - __main__ - INFO - Added bed 10 to department 1
+2024-11-22 21:50:59,367 - __main__ - INFO - Added bed 11 to department 1
+2024-11-22 21:50:59,367 - __main__ - INFO - Added bed 12 to department 1
+2024-11-22 21:50:59,368 - __main__ - INFO - Added bed 13 to department 1
+2024-11-22 21:50:59,368 - __main__ - INFO - Added bed 14 to department 1
+2024-11-22 21:50:59,368 - __main__ - INFO - Added bed 15 to department 1
+2024-11-22 21:50:59,368 - __main__ - INFO - Added bed 16 to department 1
+2024-11-22 21:50:59,369 - __main__ - INFO - Added bed 17 to department 1
+2024-11-22 21:50:59,369 - __main__ - INFO - Added bed 18 to department 1
+2024-11-22 21:50:59,369 - __main__ - INFO - Added bed 19 to department 1
+2024-11-22 21:50:59,369 - __main__ - INFO - Added bed 20 to department 1
+2024-11-22 21:50:59,370 - __main__ - INFO - Added bed 1 to department 2
+2024-11-22 21:50:59,370 - __main__ - INFO - Added bed 2 to department 2
+2024-11-22 21:50:59,370 - __main__ - INFO - Added bed 3 to department 2
+2024-11-22 21:50:59,370 - __main__ - INFO - Added bed 4 to department 2
+2024-11-22 21:50:59,370 - __main__ - INFO - Added bed 5 to department 2
+2024-11-22 21:50:59,371 - __main__ - INFO - Added bed 6 to department 2
+2024-11-22 21:50:59,371 - __main__ - INFO - Added bed 7 to department 2
+2024-11-22 21:50:59,371 - __main__ - INFO - Added bed 8 to department 2
+2024-11-22 21:50:59,371 - __main__ - INFO - Added bed 9 to department 2
+2024-11-22 21:50:59,371 - __main__ - INFO - Added bed 10 to department 2
+2024-11-22 21:50:59,371 - __main__ - INFO - Added bed 1 to department 3
+2024-11-22 21:50:59,372 - __main__ - INFO - Added bed 2 to department 3
+2024-11-22 21:50:59,372 - __main__ - INFO - Added bed 3 to department 3
+2024-11-22 21:50:59,372 - __main__ - INFO - Added bed 4 to department 3
+2024-11-22 21:50:59,372 - __main__ - INFO - Added bed 5 to department 3
+2024-11-22 21:50:59,373 - __main__ - INFO - Added bed 6 to department 3
+2024-11-22 21:50:59,373 - __main__ - INFO - Added bed 7 to department 3
+2024-11-22 21:50:59,373 - __main__ - INFO - Added bed 8 to department 3
+2024-11-22 21:50:59,373 - __main__ - INFO - Added bed 9 to department 3
+2024-11-22 21:50:59,373 - __main__ - INFO - Added bed 10 to department 3
+2024-11-22 21:50:59,373 - __main__ - INFO - Added bed 11 to department 3
+2024-11-22 21:50:59,374 - __main__ - INFO - Added bed 12 to department 3
+2024-11-22 21:50:59,374 - __main__ - INFO - Added bed 13 to department 3
+2024-11-22 21:50:59,374 - __main__ - INFO - Added bed 14 to department 3
+2024-11-22 21:50:59,374 - __main__ - INFO - Added bed 15 to department 3
+2024-11-22 21:50:59,374 - __main__ - INFO - Added bed 16 to department 3
+2024-11-22 21:50:59,374 - __main__ - INFO - Added bed 17 to department 3
+2024-11-22 21:50:59,375 - __main__ - INFO - Added bed 18 to department 3
+2024-11-22 21:50:59,375 - __main__ - INFO - Added bed 19 to department 3
+2024-11-22 21:50:59,375 - __main__ - INFO - Added bed 20 to department 3
+2024-11-22 21:50:59,375 - __main__ - INFO - Added bed 21 to department 3
+2024-11-22 21:50:59,376 - __main__ - INFO - Added bed 22 to department 3
+2024-11-22 21:50:59,376 - __main__ - INFO - Added bed 23 to department 3
+2024-11-22 21:50:59,376 - __main__ - INFO - Added bed 24 to department 3
+2024-11-22 21:50:59,376 - __main__ - INFO - Added bed 25 to department 3
+2024-11-22 21:50:59,376 - __main__ - INFO - Added bed 26 to department 3
+2024-11-22 21:50:59,377 - __main__ - INFO - Added bed 27 to department 3
+2024-11-22 21:50:59,377 - __main__ - INFO - Added bed 28 to department 3
+2024-11-22 21:50:59,377 - __main__ - INFO - Added bed 29 to department 3
+2024-11-22 21:50:59,377 - __main__ - INFO - Added bed 30 to department 3
+2024-11-22 21:50:59,377 - __main__ - INFO - Added bed 1 to department 4
+2024-11-22 21:50:59,378 - __main__ - INFO - Added bed 2 to department 4
+2024-11-22 21:50:59,378 - __main__ - INFO - Added bed 3 to department 4
+2024-11-22 21:50:59,378 - __main__ - INFO - Added bed 4 to department 4
+2024-11-22 21:50:59,378 - __main__ - INFO - Added bed 5 to department 4
+2024-11-22 21:50:59,378 - __main__ - INFO - Added bed 6 to department 4
+2024-11-22 21:50:59,378 - __main__ - INFO - Added bed 7 to department 4
+2024-11-22 21:50:59,379 - __main__ - INFO - Added bed 8 to department 4
+2024-11-22 21:50:59,379 - __main__ - INFO - Added bed 9 to department 4
+2024-11-22 21:50:59,379 - __main__ - INFO - Added bed 10 to department 4
+2024-11-22 21:50:59,379 - __main__ - INFO - Added bed 11 to department 4
+2024-11-22 21:50:59,379 - __main__ - INFO - Added bed 12 to department 4
+2024-11-22 21:50:59,379 - __main__ - INFO - Added bed 13 to department 4
+2024-11-22 21:50:59,380 - __main__ - INFO - Added bed 14 to department 4
+2024-11-22 21:50:59,380 - __main__ - INFO - Added bed 15 to department 4
+2024-11-22 21:50:59,380 - __main__ - INFO - Adding supplies...
+2024-11-22 21:50:59,380 - __main__ - INFO - Added supply Surgical Masks with ID: 1
+2024-11-22 21:50:59,381 - __main__ - INFO - Added supply Hand Sanitizer with ID: 2
+2024-11-22 21:50:59,381 - __main__ - INFO - Added supply Surgical Gloves with ID: 3
+2024-11-22 21:50:59,381 - __main__ - INFO - Added supply Bandages with ID: 4
+2024-11-22 21:50:59,382 - __main__ - INFO - Total departments: 4
+2024-11-22 21:50:59,382 - __main__ - INFO - Total staff: 4
+2024-11-22 21:50:59,383 - __main__ - INFO - Total equipment: 16
+2024-11-22 21:50:59,383 - __main__ - INFO - Total beds: 75
+2024-11-22 21:50:59,383 - __main__ - INFO - Total supplies: 4
+2024-11-22 21:50:59,383 - __main__ - INFO - Sample data inserted successfully!
+2024-11-22 21:51:11,093 - database_utils - INFO - Database connection established successfully
+2024-11-22 21:51:11,093 - __main__ - INFO - 
+Testing Equipment Tracking System...
+2024-11-22 21:51:11,135 - equipment_tracking - INFO - Added new equipment: Ventilator X100 with ID: 17
+2024-11-22 21:51:11,135 - __main__ - INFO - Added equipment: Ventilator X100 with ID: 17
+2024-11-22 21:51:11,136 - equipment_tracking - INFO - Added new equipment: MRI Scanner with ID: 18
+2024-11-22 21:51:11,136 - __main__ - INFO - Added equipment: MRI Scanner with ID: 18
+2024-11-22 21:51:11,137 - equipment_tracking - INFO - Added new equipment: Patient Monitor with ID: 19
+2024-11-22 21:51:11,137 - __main__ - INFO - Added equipment: Patient Monitor with ID: 19
+2024-11-22 21:51:11,137 - __main__ - INFO - 
+Testing equipment assignment...
+2024-11-22 21:51:11,145 - __main__ - INFO - Assigned equipment 17: {'usage_id': 1, 'equipment_id': 17, 'department_id': 1, 'start_time': datetime.datetime(2024, 11, 22, 21, 51, 11, 145116)}
+2024-11-22 21:51:11,146 - __main__ - INFO - Assigned equipment 18: {'usage_id': 2, 'equipment_id': 18, 'department_id': 1, 'start_time': datetime.datetime(2024, 11, 22, 21, 51, 11, 146547)}
+2024-11-22 21:51:11,148 - __main__ - INFO - Assigned equipment 19: {'usage_id': 3, 'equipment_id': 19, 'department_id': 1, 'start_time': datetime.datetime(2024, 11, 22, 21, 51, 11, 147809)}
+2024-11-22 21:51:11,148 - __main__ - INFO - 
+Testing status updates...
+2024-11-22 21:51:11,148 - equipment_tracking - INFO - Updated equipment 17 status to in_use
+2024-11-22 21:51:11,148 - __main__ - INFO - Updated equipment 17 status: True
+2024-11-22 21:51:11,149 - equipment_tracking - INFO - Updated equipment 18 status to in_use
+2024-11-22 21:51:11,149 - __main__ - INFO - Updated equipment 18 status: True
+2024-11-22 21:51:11,150 - __main__ - INFO - 
+Scheduling maintenance...
+2024-11-22 21:51:11,152 - __main__ - INFO - Scheduled maintenance 1 for equipment 17
+2024-11-22 21:51:11,153 - __main__ - INFO - Scheduled maintenance 2 for equipment 18
+2024-11-22 21:51:11,153 - __main__ - INFO - Scheduled maintenance 3 for equipment 19
+2024-11-22 21:51:11,153 - __main__ - INFO - 
+Testing equipment release...
+2024-11-22 21:51:11,155 - __main__ - INFO - Released equipment: {'usage_id': 1, 'equipment_id': 17, 'release_time': datetime.datetime(2024, 11, 22, 21, 51, 11, 154794)}
+2024-11-22 21:51:11,156 - __main__ - INFO - Released equipment: {'usage_id': 2, 'equipment_id': 18, 'release_time': datetime.datetime(2024, 11, 22, 21, 51, 11, 155920)}
+2024-11-22 21:51:11,157 - __main__ - INFO - Released equipment: {'usage_id': 3, 'equipment_id': 19, 'release_time': datetime.datetime(2024, 11, 22, 21, 51, 11, 156921)}
+2024-11-22 21:51:11,157 - __main__ - INFO - 
+Checking equipment history...
+2024-11-22 21:51:11,159 - __main__ - INFO - Equipment 17 history:
+2024-11-22 21:51:11,159 - __main__ - INFO - - Usage records: 2
+2024-11-22 21:51:11,159 - __main__ - INFO - - Maintenance records: 1
+2024-11-22 21:51:11,161 - __main__ - INFO - Equipment 18 history:
+2024-11-22 21:51:11,161 - __main__ - INFO - - Usage records: 2
+2024-11-22 21:51:11,161 - __main__ - INFO - - Maintenance records: 1
+2024-11-22 21:51:11,162 - __main__ - INFO - Equipment 19 history:
+2024-11-22 21:51:11,162 - __main__ - INFO - - Usage records: 1
+2024-11-22 21:51:11,162 - __main__ - INFO - - Maintenance records: 1
+2024-11-22 21:51:11,162 - __main__ - INFO - 
+Checking department equipment...
+2024-11-22 21:51:11,163 - __main__ - INFO - Department 1 has 7 equipment items:
+2024-11-22 21:51:11,163 - __main__ - INFO - - Defibrillator - Dept 1 (available)
+2024-11-22 21:51:11,163 - __main__ - INFO - - ECG Monitor - Dept 1 (available)
+2024-11-22 21:51:11,163 - __main__ - INFO - - MRI Scanner (available)
+2024-11-22 21:51:11,163 - __main__ - INFO - - Patient Monitor (available)
+2024-11-22 21:51:11,163 - __main__ - INFO - - Ventilator - Dept 1 (available)
+2024-11-22 21:51:11,163 - __main__ - INFO - - Ventilator X100 (available)
+2024-11-22 21:51:11,163 - __main__ - INFO - - X-Ray Machine - Dept 1 (available)
+2024-11-22 21:51:11,163 - __main__ - INFO - 
+All equipment tracking tests completed successfully!
+2024-11-22 21:57:58,561 - database_utils - INFO - Database connection established successfully
+2024-11-22 21:57:58,611 - __main__ - INFO - Updating supplies table...
+2024-11-22 21:57:58,614 - __main__ - INFO - Creating supply orders table...
+2024-11-22 21:57:58,623 - __main__ - INFO - Creating indexes...
+2024-11-22 21:57:58,629 - __main__ - INFO - Supply management schema updated successfully!
+2024-11-22 22:54:41,731 - database_utils - INFO - Database connection established successfully
+2024-11-22 22:54:48,972 - database_utils - INFO - Database connection established successfully
+2024-11-22 23:10:14,814 - database_utils - INFO - Database connection established successfully
+2024-11-22 23:10:55,092 - database_utils - INFO - Database connection established successfully
+2024-11-22 23:15:57,954 - database_utils - INFO - Database connection established successfully
+2024-11-22 23:15:58,025 - __main__ - INFO - Generating sample admissions...
+2024-11-22 23:15:58,069 - __main__ - INFO - Generating staff schedules...
+2024-11-22 23:15:58,088 - __main__ - INFO - Generating equipment usage...
+2024-11-22 23:15:58,115 - __main__ - INFO - Generating supply transactions...
+2024-11-22 23:15:58,128 - __main__ - INFO - Sample data generation completed successfully!
+2024-11-22 23:16:07,316 - database_utils - INFO - Database connection established successfully
+2024-11-23 00:06:09,961 - database_utils - INFO - Database connection established successfully
+2024-11-23 00:06:10,038 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-11-23 00:06:10,039 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-23 00:06:10,039 - werkzeug - INFO -  * Restarting with stat
+2024-11-23 00:06:10,367 - database_utils - INFO - Database connection established successfully
+2024-11-23 00:06:10,386 - werkzeug - WARNING -  * Debugger is active!
+2024-11-23 00:06:10,397 - werkzeug - INFO -  * Debugger PIN: 111-854-498
