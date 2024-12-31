@@ -56,6 +56,7 @@ A comprehensive web-based dashboard for monitoring and managing healthcare facil
    ```bash
    git clone https://github.com/yourusername/healthcare-resource-dashboard.git
    cd healthcare-resource-dashboard
+
 Build and run using Docker:
 bash
 Copy code
