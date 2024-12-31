@@ -93,6 +93,7 @@ Run the application:
 bash
 Copy code
 python run.py
+
 📊 Database Schema
 The system uses a PostgreSQL database with the following main tables:
 
@@ -104,11 +105,13 @@ Beds
 Admissions
 Supply Orders
 Equipment Usage
+
 🔌 API Endpoints
 Main Endpoints
 GET /api/data: Fetch all dashboard data.
 GET /api/departments/status: Get current department status.
 GET /api/dashboard/summary: Get summary statistics.
+
 📈 Dashboard Components
 Bed Occupancy Chart
 
@@ -130,11 +133,13 @@ Supply Status Chart
 Bar chart displaying supply transactions.
 Category-wise inventory status.
 Transaction tracking.
+
 🔒 Security Considerations
 Development server warnings implemented.
 Database connection security.
 Environment variable protection.
 Docker security configurations.
+
 🧪 Testing
 The system includes comprehensive logging for testing and debugging:
 
@@ -149,17 +154,20 @@ Database operations logging.
 System events tracking.
 Error logging.
 Performance monitoring.
+
 🤝 Contributing
 Fork the repository.
 Create your feature branch (git checkout -b feature/AmazingFeature).
 Commit your changes (git commit -m 'Add some AmazingFeature').
 Push to the branch (git push origin feature/AmazingFeature).
 Open a Pull Request.
+
 📄 License
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 👥 Authors
-Your Name - Initial work
+Bhuvan Shah - Initial work
+
 🙏 Acknowledgments
 Chart.js for visualization components.
 TailwindCSS for styling.
