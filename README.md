@@ -148,6 +148,7 @@ Equipment tracking tests.
 Patient admission tests.
 Supply management tests.
 Database connection tests.
+
 📝 Logging
 Detailed logging system implemented with:
 
