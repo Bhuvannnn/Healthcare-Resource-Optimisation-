@@ -76,8 +76,6 @@ Open your browser to [http://localhost:5000](http://localhost:5000)
 
 ## 📊 Screenshots
 
-> **Add your dashboard screenshots here!**
-
 ![Dashboard Screenshot](Screenshots/Bottom_half.png)
 
 ![Dashboard Screenshot](Screenshots/Top_Half.png)
