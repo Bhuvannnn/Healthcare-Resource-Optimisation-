@@ -682,3 +682,48 @@ All equipment tracking tests completed successfully!
 2024-11-23 00:06:10,367 - database_utils - INFO - Database connection established successfully
 2024-11-23 00:06:10,386 - werkzeug - WARNING -  * Debugger is active!
 2024-11-23 00:06:10,397 - werkzeug - INFO -  * Debugger PIN: 111-854-498
+2025-06-24 19:51:15,628 - database_utils - INFO - Database connection established successfully
+2025-06-24 19:51:15,686 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-06-24 19:51:15,686 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-06-24 19:51:15,687 - werkzeug - INFO -  * Restarting with stat
+2025-06-24 19:51:16,025 - database_utils - INFO - Database connection established successfully
+2025-06-24 19:51:16,042 - werkzeug - WARNING -  * Debugger is active!
+2025-06-24 19:51:16,054 - werkzeug - INFO -  * Debugger PIN: 111-854-498
+2025-06-24 19:51:52,487 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-06-24 19:51:52,487 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-06-24 19:51:52,488 - werkzeug - INFO -  * Restarting with stat
+2025-06-24 19:51:52,864 - werkzeug - WARNING -  * Debugger is active!
+2025-06-24 19:51:52,873 - werkzeug - INFO -  * Debugger PIN: 111-854-498
+2025-06-24 19:52:14,608 - werkzeug - INFO - 127.0.0.1 - - [24/Jun/2025 19:52:14] "GET / HTTP/1.1" 200 -
+2025-06-24 19:52:14,925 - app.database_utils - INFO - Database connection established successfully
+2025-06-24 19:52:15,039 - werkzeug - INFO - 127.0.0.1 - - [24/Jun/2025 19:52:15] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-06-24 19:52:15,131 - app.routes - INFO - Data fetched successfully
+2025-06-24 19:52:15,131 - werkzeug - INFO - 127.0.0.1 - - [24/Jun/2025 19:52:15] "GET /api/data HTTP/1.1" 200 -
+2025-06-24 19:55:41,988 - app.database_utils - INFO - Database connection established successfully
+2025-06-24 19:55:42,052 - __main__ - INFO - Number of departments: 4
+2025-06-24 19:55:42,053 - __main__ - INFO - Number of staff members: 4
+2025-06-24 19:55:42,054 - __main__ - INFO - Number of equipment: 16
+2025-06-24 19:55:42,055 - __main__ - INFO - Number of supplies: 4
+2025-06-24 19:55:42,056 - __main__ - INFO - Number of admissions: 50
+2025-06-24 19:55:42,056 - __main__ - INFO - 
+Sample Department Data:
+2025-06-24 19:55:42,057 - __main__ - INFO - (1, 'Emergency', 'First Floor', 20, datetime.datetime(2025, 2, 10, 17, 8, 19, 257657))
+2025-06-24 19:55:42,057 - __main__ - INFO - (2, 'ICU', 'Second Floor', 10, datetime.datetime(2025, 2, 10, 17, 8, 19, 257657))
+2025-06-24 19:55:42,057 - __main__ - INFO - (3, 'General Medicine', 'Third Floor', 30, datetime.datetime(2025, 2, 10, 17, 8, 19, 257657))
+2025-06-24 19:55:42,057 - __main__ - INFO - 
+Sample Equipment Data:
+2025-06-24 19:55:42,057 - __main__ - INFO - (1, 'Ventilator - Dept 1', 'Ventilator', 1, 'available', None, None, datetime.datetime(2025, 2, 10, 17, 8, 19, 257657), datetime.datetime(2025, 2, 10, 17, 8, 19, 257657))
+2025-06-24 19:55:42,057 - __main__ - INFO - (2, 'X-Ray Machine - Dept 1', 'X-Ray Machine', 1, 'available', None, None, datetime.datetime(2025, 2, 10, 17, 8, 19, 257657), datetime.datetime(2025, 2, 10, 17, 8, 19, 257657))
+2025-06-24 19:55:42,057 - __main__ - INFO - (3, 'ECG Monitor - Dept 1', 'ECG Monitor', 1, 'available', None, None, datetime.datetime(2025, 2, 10, 17, 8, 19, 257657), datetime.datetime(2025, 2, 10, 17, 8, 19, 257657))
+2025-06-24 20:00:19,026 - database_utils - INFO - Database connection established successfully
+2025-06-24 20:00:19,111 - __main__ - INFO - Generating sample admissions...
+2025-06-24 20:00:19,149 - __main__ - INFO - Generating staff schedules...
+2025-06-24 20:00:19,176 - __main__ - INFO - Generating equipment usage...
+2025-06-24 20:00:19,205 - __main__ - INFO - Generating supply transactions...
+2025-06-24 20:00:19,221 - __main__ - INFO - Sample data generation completed successfully!
+2025-06-24 20:17:10,028 - database_utils - INFO - Database connection established successfully
+2025-06-24 20:17:15,886 - database_utils - INFO - Database connection established successfully
+2025-06-24 20:17:21,041 - database_utils - INFO - Database connection established successfully
+2025-06-24 20:17:27,404 - database_utils - INFO - Database connection established successfully

@@ -18,44 +18,85 @@
             left: 50%;
             transform: translate(-50%, -50%);
         }
+        .stats-card {
+            background: white;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .utilization-bar {
+            width: 100%;
+            height: 20px;
+            background-color: #e5e7eb;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+        .utilization-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #10b981, #059669);
+            transition: width 0.3s ease;
+        }
     </style>
 </head>
 <body class="bg-gray-100">
     <div class="container mx-auto px-4 py-8">
         <h1 class="text-3xl font-bold mb-8">Healthcare Resource Dashboard</h1>
         
-        <!-- Debug Info -->
-        <!-- <div id="debug-info" class="mb-4 p-4 bg-yellow-100 hidden">
-            <pre class="whitespace-pre-wrap"></pre>
-        </div> -->
+        <!-- Summary Stats Row -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+            <div class="stats-card">
+                <h3 class="text-lg font-semibold text-gray-700">Total Beds</h3>
+                <div id="total-beds" class="text-2xl font-bold text-blue-600">-</div>
+                <div id="occupied-beds" class="text-sm text-gray-600">Occupied: -</div>
+            </div>
+            <div class="stats-card">
+                <h3 class="text-lg font-semibold text-gray-700">Staff on Duty</h3>
+                <div id="staff-on-duty" class="text-2xl font-bold text-green-600">-</div>
+                <div id="total-staff" class="text-sm text-gray-600">Total: -</div>
+            </div>
+            <div class="stats-card">
+                <h3 class="text-lg font-semibold text-gray-700">Equipment in Use</h3>
+                <div id="equipment-in-use" class="text-2xl font-bold text-purple-600">-</div>
+                <div id="total-equipment" class="text-sm text-gray-600">Total: -</div>
+            </div>
+            <div class="stats-card">
+                <h3 class="text-lg font-semibold text-gray-700">Low Stock Items</h3>
+                <div id="low-stock-count" class="text-2xl font-bold text-red-600">-</div>
+                <div class="text-sm text-gray-600">Need Reorder</div>
+            </div>
+        </div>
 
         <!-- Charts Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <!-- Bed Occupancy Chart -->
+            <!-- Bed Occupancy Chart - Stacked Bar -->
             <div class="bg-white rounded-lg shadow p-6">
-                <h2 class="text-xl font-semibold mb-4">Bed Occupancy</h2>
+                <h2 class="text-xl font-semibold mb-4">Bed Occupancy Status</h2>
                 <div class="chart-container">
                     <canvas id="bedOccupancyChart"></canvas>
                     <div id="bed-loading" class="loading">Loading...</div>
                 </div>
             </div>
 
-            <!-- Staff Workload Chart -->
+            <!-- Staff Workload Chart - Line Chart -->
             <div class="bg-white rounded-lg shadow p-6">
-                <h2 class="text-xl font-semibold mb-4">Staff Workload</h2>
+                <h2 class="text-xl font-semibold mb-4">Staff Workload Trends (Last 7 Days)</h2>
                 <div class="chart-container">
                     <canvas id="staffWorkloadChart"></canvas>
                     <div id="staff-loading" class="loading">Loading...</div>
                 </div>
             </div>
 
-            <!-- Equipment Usage Chart -->
+            <!-- Equipment Usage Chart - Enhanced -->
             <div class="bg-white rounded-lg shadow p-6">
-                <h2 class="text-xl font-semibold mb-4">Equipment Usage</h2>
+                <h2 class="text-xl font-semibold mb-4">Equipment Utilization</h2>
                 <div class="chart-container">
                     <canvas id="equipmentChart"></canvas>
                     <div id="equipment-loading" class="loading">Loading...</div>
                 </div>
+                <!-- Equipment Utilization Bars -->
+                <div id="equipment-bars" class="mt-4 space-y-3"></div>
             </div>
 
             <!-- Supply Status Chart -->
@@ -74,61 +115,122 @@
         const DEBUG = true;
 
         function showDebug(data) {
-            // if (DEBUG) {
-            //     const debugDiv = document.getElementById('debug-info');
-            //     debugDiv.classList.remove('hidden');
-            //     debugDiv.querySelector('pre').textContent = JSON.stringify(data, null, 2);
-            // }
+            if (DEBUG) {
+                console.log('Dashboard data:', data);
+            }
         }
 
         async function fetchDashboardData() {
-    try {
-        const response = await fetch('/api/data');
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            try {
+                const response = await fetch('/api/data');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                console.log('Fetched data:', data);
+                showDebug(data);
+                return data;
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                showDebug({error: error.message});
+                document.querySelectorAll('.loading').forEach(el => {
+                    el.textContent = 'Failed to load data';
+                });
+                throw error;
+            }
         }
-        const data = await response.json();
-        console.log('Fetched data:', data);  // Debug log
-        showDebug(data);
-        return data;
-    } catch (error) {
-        console.error('Error fetching data:', error);
-        showDebug({error: error.message});
-        document.querySelectorAll('.loading').forEach(el => {
-            el.textContent = 'Failed to load data';
-        });
-        throw error;
-    }
-}
+
+        function updateSummaryStats(data) {
+            // Update summary statistics
+            if (data.detailed_bed_occupancy && data.detailed_bed_occupancy.summary) {
+                const summary = data.detailed_bed_occupancy.summary;
+                document.getElementById('total-beds').textContent = summary.total_beds;
+                document.getElementById('occupied-beds').textContent = `Occupied: ${summary.occupied_beds}`;
+            }
+
+            if (data.staff_workload_trends && data.staff_workload_trends.summary) {
+                const summary = data.staff_workload_trends.summary;
+                const onDuty = Math.round(summary.average_staff_per_day);
+                const totalStaff = onDuty + Math.round(onDuty * 0.3); // Estimate total staff
+                
+                document.getElementById('staff-on-duty').textContent = onDuty;
+                document.getElementById('total-staff').textContent = `Total: ${totalStaff}`;
+            }
+
+            if (data.equipment_utilization && data.equipment_utilization.equipment_utilization) {
+                const totalEquipment = data.equipment_utilization.equipment_utilization.length;
+                const inUse = data.equipment_utilization.equipment_utilization.filter(eq => eq.currently_in_use).length;
+                
+                document.getElementById('equipment-in-use').textContent = inUse;
+                document.getElementById('total-equipment').textContent = `Total: ${totalEquipment}`;
+            }
+
+            if (data.supplies && data.supplies.supply_consumption) {
+                const lowStock = data.supplies.supply_consumption.filter(s => s.current_quantity <= s.minimum_quantity).length;
+                document.getElementById('low-stock-count').textContent = lowStock;
+            }
+        }
 
         function updateBedOccupancyChart(data) {
             const ctx = document.getElementById('bedOccupancyChart').getContext('2d');
             const loading = document.getElementById('bed-loading');
             
-            if (!data || !data.bed_occupancy || !data.bed_occupancy.statistics) {
+            if (!data || !data.detailed_bed_occupancy || !data.detailed_bed_occupancy.department_beds) {
                 loading.textContent = 'No data available';
                 return;
             }
             
             loading.style.display = 'none';
             
+            const bedData = data.detailed_bed_occupancy.department_beds;
+            const departments = bedData.map(d => d.department_name);
+            const occupiedBeds = bedData.map(d => d.occupied_beds);
+            const availableBeds = bedData.map(d => d.available_beds);
+            const occupancyRates = bedData.map(d => d.occupancy_rate);
+            
             new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: Object.keys(data.bed_occupancy.statistics.trend_by_department),
-                    datasets: [{
-                        label: 'Occupancy Rate (%)',
-                        data: Object.values(data.bed_occupancy.statistics.trend_by_department),
-                        backgroundColor: 'rgba(54, 162, 235, 0.5)'
-                    }]
+                    labels: departments,
+                    datasets: [
+                        {
+                            label: 'Occupied Beds',
+                            data: occupiedBeds,
+                            backgroundColor: 'rgba(239, 68, 68, 0.8)',
+                            borderColor: 'rgba(239, 68, 68, 1)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Available Beds',
+                            data: availableBeds,
+                            backgroundColor: 'rgba(34, 197, 94, 0.8)',
+                            borderColor: 'rgba(34, 197, 94, 1)',
+                            borderWidth: 1
+                        }
+                    ]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
                     scales: {
+                        x: {
+                            stacked: true,
+                        },
                         y: {
+                            stacked: true,
                             beginAtZero: true,
-                            max: 100
+                            max: Math.max(...bedData.map(d => d.total_beds)) + 5
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                afterBody: function(context) {
+                                    const dataIndex = context[0].dataIndex;
+                                    const rate = occupancyRates[dataIndex];
+                                    return `Occupancy Rate: ${rate.toFixed(1)}%`;
+                                }
+                            }
                         }
                     }
                 }
@@ -139,31 +241,57 @@
             const ctx = document.getElementById('staffWorkloadChart').getContext('2d');
             const loading = document.getElementById('staff-loading');
             
-            if (!data || !data.staff_workload || !data.staff_workload.department_statistics) {
+            if (!data || !data.staff_workload_trends || !data.staff_workload_trends.daily_trends) {
                 loading.textContent = 'No data available';
                 return;
             }
             
             loading.style.display = 'none';
             
-            const deptStats = data.staff_workload.department_statistics;
+            const trends = data.staff_workload_trends.daily_trends;
+            const days = trends.map(t => {
+                const date = new Date(t.date);
+                return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+            });
+            const workloadData = trends.map(t => t.total_hours);
+            
             new Chart(ctx, {
-                type: 'pie',
+                type: 'line',
                 data: {
-                    labels: Object.keys(deptStats),
+                    labels: days,
                     datasets: [{
-                        data: Object.values(deptStats).map(dept => dept.total_hours),
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.5)',
-                            'rgba(54, 162, 235, 0.5)',
-                            'rgba(255, 206, 86, 0.5)',
-                            'rgba(75, 192, 192, 0.5)'
-                        ]
+                        label: 'Total Staff Hours',
+                        data: workloadData,
+                        borderColor: 'rgba(59, 130, 246, 1)',
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4
                     }]
                 },
                 options: {
                     responsive: true,
-                    maintainAspectRatio: false
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Total Hours'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Date'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: true
+                        }
+                    }
                 }
             });
         }
@@ -180,6 +308,32 @@
             loading.style.display = 'none';
             
             const equipStats = data.equipment_utilization.type_statistics;
+            const equipmentData = data.equipment_utilization.equipment_utilization;
+            
+            // Create utilization bars
+            const barsContainer = document.getElementById('equipment-bars');
+            barsContainer.innerHTML = '';
+            
+            Object.entries(equipStats).forEach(([type, stats]) => {
+                const totalEquipment = equipmentData.filter(eq => eq.type === type).length;
+                const inUse = equipmentData.filter(eq => eq.type === type && eq.currently_in_use).length;
+                const utilizationRate = totalEquipment > 0 ? (inUse / totalEquipment) * 100 : 0;
+                
+                const barDiv = document.createElement('div');
+                barDiv.className = 'mb-3';
+                barDiv.innerHTML = `
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="text-sm font-medium">${type}</span>
+                        <span class="text-sm text-gray-600">${inUse}/${totalEquipment} in use (${utilizationRate.toFixed(1)}%)</span>
+                    </div>
+                    <div class="utilization-bar">
+                        <div class="utilization-fill" style="width: ${utilizationRate}%"></div>
+                    </div>
+                `;
+                barsContainer.appendChild(barDiv);
+            });
+            
+            // Main chart - equipment usage by type
             new Chart(ctx, {
                 type: 'doughnut',
                 data: {
@@ -187,16 +341,33 @@
                     datasets: [{
                         data: Object.values(equipStats).map(eq => eq.total_uses),
                         backgroundColor: [
-                            'rgba(255, 99, 132, 0.5)',
-                            'rgba(54, 162, 235, 0.5)',
-                            'rgba(255, 206, 86, 0.5)',
-                            'rgba(75, 192, 192, 0.5)'
-                        ]
+                            'rgba(255, 99, 132, 0.8)',
+                            'rgba(54, 162, 235, 0.8)',
+                            'rgba(255, 206, 86, 0.8)',
+                            'rgba(75, 192, 192, 0.8)',
+                            'rgba(153, 102, 255, 0.8)'
+                        ],
+                        borderWidth: 2,
+                        borderColor: '#fff'
                     }]
                 },
                 options: {
                     responsive: true,
-                    maintainAspectRatio: false
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const label = context.label || '';
+                                    const value = context.parsed;
+                                    return `${label}: ${value} uses`;
+                                }
+                            }
+                        }
+                    }
                 }
             });
         }
@@ -220,7 +391,9 @@
                     datasets: [{
                         label: 'Total Transactions',
                         data: Object.values(supplyStats).map(s => s.total_transactions),
-                        backgroundColor: 'rgba(75, 192, 192, 0.5)'
+                        backgroundColor: 'rgba(75, 192, 192, 0.8)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
                     }]
                 },
                 options: {
@@ -228,7 +401,11 @@
                     maintainAspectRatio: false,
                     scales: {
                         y: {
-                            beginAtZero: true
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Number of Transactions'
+                            }
                         }
                     }
                 }
@@ -236,14 +413,16 @@
         }
 
         // Initialize dashboard
-                async function initializeDashboard() {
+        async function initializeDashboard() {
             try {
-                console.log('Initializing dashboard...');  // Debug log
+                console.log('Initializing dashboard...');
                 const data = await fetchDashboardData();
-                console.log('Got data:', data);  // Debug log
+                console.log('Got data:', data);
                 if (data.error) {
                     throw new Error(data.error);
                 }
+                
+                updateSummaryStats(data);
                 updateBedOccupancyChart(data);
                 updateStaffWorkloadChart(data);
                 updateEquipmentChart(data);
