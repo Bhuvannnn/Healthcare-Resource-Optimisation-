@@ -38,11 +38,27 @@
             background: linear-gradient(90deg, #10b981, #059669);
             transition: width 0.3s ease;
         }
+        .alert-banner {
+            animation: slideDown 0.5s ease;
+        }
+        @keyframes slideDown {
+            from { transform: translateY(-100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
     </style>
 </head>
 <body class="bg-gray-100">
+    <!-- System Alerts Banner -->
+    <div id="alert-banner-container"></div>
+
     <div class="container mx-auto px-4 py-8">
-        <h1 class="text-3xl font-bold mb-8">Healthcare Resource Dashboard</h1>
+        <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-4">
+            <h1 class="text-3xl font-bold mb-4 md:mb-0">Healthcare Resource Dashboard</h1>
+            <div class="flex flex-col md:items-end">
+                <div id="live-clock" class="text-lg font-mono text-gray-700"></div>
+                <div id="last-updated" class="text-xs text-gray-500">Last updated: --</div>
+            </div>
+        </div>
         
         <!-- Summary Stats Row -->
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
@@ -111,6 +127,29 @@
     </div>
 
     <script>
+        // Live Clock
+        function updateClock() {
+            const now = new Date();
+            document.getElementById('live-clock').textContent = now.toLocaleTimeString();
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // System Alerts Banner
+        function showAlertBanner(alerts) {
+            const container = document.getElementById('alert-banner-container');
+            container.innerHTML = '';
+            if (!alerts) return;
+            const allAlerts = [...(alerts.critical || []), ...(alerts.warning || [])];
+            if (allAlerts.length === 0) return;
+            allAlerts.forEach((msg, idx) => {
+                const div = document.createElement('div');
+                div.className = `alert-banner w-full px-4 py-3 text-white font-semibold flex items-center justify-between ${msg.startsWith('Critical') ? 'bg-red-600' : 'bg-yellow-500'}`;
+                div.innerHTML = `<span>${msg}</span><button class='ml-4 text-xl font-bold focus:outline-none' onclick='this.parentElement.style.display="none";'>&times;</button>`;
+                container.appendChild(div);
+            });
+        }
+
         // Debug mode
         const DEBUG = true;
 
@@ -127,8 +166,13 @@
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 const data = await response.json();
-                console.log('Fetched data:', data);
                 showDebug(data);
+                // Set last updated timestamp
+                document.getElementById('last-updated').textContent = 'Last updated: ' + new Date().toLocaleString();
+                // Show system alerts if present
+                if (data.alerts) {
+                    showAlertBanner(data.alerts);
+                }
                 return data;
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -415,27 +459,22 @@
         // Initialize dashboard
         async function initializeDashboard() {
             try {
-                console.log('Initializing dashboard...');
                 const data = await fetchDashboardData();
-                console.log('Got data:', data);
                 if (data.error) {
                     throw new Error(data.error);
                 }
-                
                 updateSummaryStats(data);
                 updateBedOccupancyChart(data);
                 updateStaffWorkloadChart(data);
                 updateEquipmentChart(data);
                 updateSupplyChart(data);
             } catch (error) {
-                console.error('Failed to initialize dashboard:', error);
                 document.querySelectorAll('.loading').forEach(el => {
                     el.textContent = 'Failed to load data';
                 });
             }
         }
 
-        // Start the dashboard
         document.addEventListener('DOMContentLoaded', initializeDashboard);
     </script>
 </body>

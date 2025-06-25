@@ -25,7 +25,8 @@ def get_data():
             ),
             'staff_workload_trends': analytics.get_daily_staff_workload_trends(7),
             'equipment_utilization': analytics.analyze_equipment_utilization(),
-            'supplies': analytics.analyze_supply_consumption()
+            'supplies': analytics.analyze_supply_consumption(),
+            'alerts': analytics.generate_system_alerts()
         }
         logger.info("Data fetched successfully")
         return jsonify(data)

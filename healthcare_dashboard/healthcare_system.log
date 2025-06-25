@@ -145,3 +145,19 @@ Sample Equipment Data:
 2025-06-24 21:34:22,212 - app.database_utils - INFO - Database connection established successfully
 2025-06-24 21:34:22,380 - app.routes - INFO - Data fetched successfully
 2025-06-24 21:34:22,382 - werkzeug - INFO - 127.0.0.1 - - [24/Jun/2025 21:34:22] "GET /api/data HTTP/1.1" 200 -
+2025-06-24 22:38:09,665 - werkzeug - INFO -  * Detected change in '/Users/rahulshah/Desktop/ML Projects/Healthcare Resource Optimisation /healthcare_dashboard/app/analytics/analytics_and_reporting_system.py', reloading
+2025-06-24 22:38:09,828 - werkzeug - INFO -  * Restarting with stat
+2025-06-24 22:38:10,602 - werkzeug - WARNING -  * Debugger is active!
+2025-06-24 22:38:10,614 - werkzeug - INFO -  * Debugger PIN: 111-854-498
+2025-06-24 23:09:12,695 - werkzeug - INFO -  * Detected change in '/Users/rahulshah/Desktop/ML Projects/Healthcare Resource Optimisation /healthcare_dashboard/app/routes.py', reloading
+2025-06-24 23:09:12,898 - werkzeug - INFO -  * Restarting with stat
+2025-06-24 23:09:13,595 - werkzeug - WARNING -  * Debugger is active!
+2025-06-24 23:09:13,679 - werkzeug - INFO -  * Debugger PIN: 111-854-498
+2025-06-24 23:12:43,850 - werkzeug - INFO - 127.0.0.1 - - [24/Jun/2025 23:12:43] "GET / HTTP/1.1" 200 -
+2025-06-24 23:12:44,034 - app.database_utils - INFO - Database connection established successfully
+2025-06-24 23:12:44,414 - app.routes - INFO - Data fetched successfully
+2025-06-24 23:12:44,416 - werkzeug - INFO - 127.0.0.1 - - [24/Jun/2025 23:12:44] "GET /api/data HTTP/1.1" 200 -
+2025-06-24 23:15:00,591 - werkzeug - INFO - 127.0.0.1 - - [24/Jun/2025 23:15:00] "GET / HTTP/1.1" 200 -
+2025-06-24 23:15:00,687 - app.database_utils - INFO - Database connection established successfully
+2025-06-24 23:15:00,765 - app.routes - INFO - Data fetched successfully
+2025-06-24 23:15:00,767 - werkzeug - INFO - 127.0.0.1 - - [24/Jun/2025 23:15:00] "GET /api/data HTTP/1.1" 200 -

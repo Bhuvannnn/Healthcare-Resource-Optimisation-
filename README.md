@@ -1,175 +1,195 @@
 # Healthcare Resource Dashboard
 
-A comprehensive web-based dashboard for monitoring and managing healthcare facility resources in real time. This system helps healthcare administrators track bed occupancy, staff workload, equipment utilization, and supply status across different departments.
+A modern web-based dashboard for real-time monitoring and management of healthcare facility resources. Track bed occupancy, staff workload, equipment utilization, and supply status across departments with interactive analytics and beautiful visualizations.
 
 ---
 
 ## 🌟 Features
 
-### Real-time Monitoring
-- **Bed Occupancy Tracking**: Visual representation of bed availability and usage across departments.
-- **Staff Workload Analysis**: Monitor staff hours and distribution across departments.
-- **Equipment Usage Tracking**: Track utilization of medical equipment.
-- **Supply Chain Management**: Monitor inventory levels and supply transactions.
-
-### Technical Features
-- Real-time data updates.
-- Interactive charts and visualizations.
-- Responsive design for all device sizes.
-- Debug mode for development.
-- RESTful API endpoints.
-- PostgreSQL database integration.
+- **Bed Occupancy Tracking:** Stacked bar chart for occupied vs available beds by department.
+- **Staff Workload Trends:** Line chart for staff hours over the last 7 days.
+- **Equipment Utilization:** Doughnut chart and progress bars for equipment usage.
+- **Supply Chain Management:** Bar chart for supply transactions and low stock alerts.
+- **Summary Cards:** Quick stats for beds, staff, equipment, and supplies.
+- **Animated System Alerts:** Dismissible, color-coded banners for critical/warning events.
+- **Live Clock & Last Updated:** Real-time clock and last data refresh time at the top.
+- **System Alerts Banner:** Always visible for immediate attention.
+- **(Planned) Department Filter:** Filter all charts by department.
 
 ---
 
 ## 🛠 Technology Stack
 
-### Frontend
-- **HTML5**
-- **TailwindCSS**
-- **Chart.js** for data visualization.
-- **JavaScript (ES6+)**
+**Frontend:**
+- HTML5, TailwindCSS, Chart.js, JavaScript (ES6+)
 
-### Backend
-- **Python 3.9**
-- **Flask Framework**
-- **SQLAlchemy ORM**
-- **PostgreSQL Database**
-- **Docker**
+**Backend:**
+- Python 3.9+, Flask, SQLAlchemy, PostgreSQL
+
+**Other:**
+- Docker (optional), dotenv, pandas
 
 ---
 
 ## 📋 Prerequisites
-
-- **Python** 3.9 or higher.
-- **PostgreSQL** 12 or higher.
-- **Docker** (optional).
-- **Node.js and npm** (for frontend development).
+- Python 3.9 or higher
+- PostgreSQL 12 or higher
+- (Optional) Docker
 
 ---
 
-## 🚀 Installation
+## 🚀 Quick Start
 
-### Using Docker
+```bash
+# Clone the repository
+$ git clone <your-repo-url>
+$ cd Healthcare\ Resource\ Optimisation
 
-1. Clone the repository:  
-   ```bash
-   git clone https://github.com/yourusername/healthcare-resource-dashboard.git
-   cd healthcare-resource-dashboard
+# Create and activate a virtual environment
+$ python -m venv venv
+$ source venv/bin/activate
 
-Build and run using Docker:
-bash
-Copy code
-docker build -t healthcare-dashboard .
-docker run -p 5000:5000 healthcare-dashboard
-Manual Installation
-Create a virtual environment:
+# Install dependencies
+$ pip install -r requirements.txt
 
-bash
-Copy code
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-Install dependencies:
-
-bash
-Copy code
-pip install -r requirements.txt
-Set up environment variables:
-Create a .env file with the following variables:
-
-makefile
-Copy code
+# Set up environment variables (.env file)
 DB_USERNAME=your_username
 DB_PASSWORD=your_password
 DB_HOST=localhost
 DB_PORT=5432
-FLASK_ENV=development
-Initialize the database:
+DB_NAME=healthcare_db
 
-bash
-Copy code
-python setup.py
-Run the application:
+# Initialize the database
+$ python setup.py
 
-bash
-Copy code
-python run.py
+# Generate sample data
+$ python sample_data_generator.py
 
-📊 Database Schema
-The system uses a PostgreSQL database with the following main tables:
+# Run the dashboard
+$ cd healthcare_dashboard
+$ python run.py
+```
 
-Departments
-Staff
-Equipment
-Supplies
-Beds
-Admissions
-Supply Orders
-Equipment Usage
+Open your browser to [http://localhost:5000](http://localhost:5000)
 
-🔌 API Endpoints
-Main Endpoints
-GET /api/data: Fetch all dashboard data.
-GET /api/departments/status: Get current department status.
-GET /api/dashboard/summary: Get summary statistics.
+---
 
-📈 Dashboard Components
-Bed Occupancy Chart
+## 📊 Screenshots
 
-Bar chart showing occupancy rates by department.
-Real-time updates.
-Percentage-based visualization.
-Staff Workload Chart
+> **Add your dashboard screenshots here!**
 
-Pie chart displaying workload distribution.
-Department-wise breakdown.
-Hour-based metrics.
-Equipment Usage Chart
+![Dashboard Screenshot](path/to/your/dashboard_screenshot.png)
 
-Doughnut chart showing equipment utilization.
-Category-wise distribution.
-Usage tracking.
-Supply Status Chart
+---
 
-Bar chart displaying supply transactions.
-Category-wise inventory status.
-Transaction tracking.
+## 🖼️ System Architecture Diagram
 
-🔒 Security Considerations
-Development server warnings implemented.
-Database connection security.
-Environment variable protection.
-Docker security configurations.
+```mermaid
+graph TD
+    User["User (Doctor/Admin)"]
+    Browser["Web Browser (Dashboard UI)"]
+    Flask["Flask Backend API"]
+    DB["PostgreSQL Database"]
+    Analytics["Analytics & Reporting Engine"]
+    Alerts["System Alerts Module"]
 
-🧪 Testing
-The system includes comprehensive logging for testing and debugging:
+    User --> Browser
+    Browser -->|HTTP/REST| Flask
+    Flask -->|SQLAlchemy| DB
+    Flask --> Analytics
+    Analytics --> DB
+    Analytics --> Alerts
+    Alerts --> Browser
+```
 
-Equipment tracking tests.
-Patient admission tests.
-Supply management tests.
-Database connection tests.
+---
 
-📝 Logging
-Detailed logging system implemented with:
+## 🔄 Data Flow Diagram
 
-Database operations logging.
-System events tracking.
-Error logging.
-Performance monitoring.
+```mermaid
+flowchart TD
+    A[User Action] --> B[Frontend JS Fetches Data]
+    B --> C[Flask API Endpoint]
+    C --> D[Analytics Engine]
+    D --> E[Database Query]
+    E --> D
+    D --> F[System Alerts]
+    F --> C
+    D --> C
+    C --> B
+    B --> G[Charts & Alerts Rendered in UI]
+```
 
-🤝 Contributing
-Fork the repository.
-Create your feature branch (git checkout -b feature/AmazingFeature).
-Commit your changes (git commit -m 'Add some AmazingFeature').
-Push to the branch (git push origin feature/AmazingFeature).
-Open a Pull Request.
+---
 
-📄 License
-This project is licensed under the MIT License - see the LICENSE file for details.
+## 🧩 Dashboard Component Diagram
 
-👥 Authors
-Bhuvan Shah - Initial work
+```mermaid
+graph TD
+    Dashboard["Dashboard Page"]
+    Beds["Bed Occupancy Chart"]
+    Staff["Staff Workload Chart"]
+    Equip["Equipment Utilization Chart"]
+    Supply["Supply Status Chart"]
+    Alerts["System Alerts Banner"]
+    Summary["Summary Cards"]
+    Clock["Live Clock & Last Updated"]
 
-🙏 Acknowledgments
-Chart.js for visualization components.
-TailwindCSS for styling.
+    Dashboard --> Beds
+    Dashboard --> Staff
+    Dashboard --> Equip
+    Dashboard --> Supply
+    Dashboard --> Alerts
+    Dashboard --> Summary
+    Dashboard --> Clock
+```
+
+---
+
+## ✨ Cool Features & Ideas
+
+- **Animated System Alerts:** Show banners for critical/warning events (e.g., "ICU at 95% capacity!").
+- **Live Clock & Last Updated:** Show real-time clock and last data refresh time.
+- **Mini Heatmap/Calendar:** (Planned) Visualize bed occupancy over the last 30 days.
+- **Department Filter:** (Planned) Filter all charts by department for focused analysis.
+- **Drill-down:** (Planned) Click on a chart segment to see detailed records.
+- **Export Reports:** (Planned) Download PDF/Excel reports of dashboard data.
+
+---
+
+## 📈 API Endpoints
+- `GET /api/data`: Fetch all dashboard data
+- `GET /api/departments/status`: Get current department status
+- `GET /api/dashboard/summary`: Get summary statistics
+
+---
+
+## 🧪 Testing & Logging
+- Equipment, patient, supply, and staff management tests
+- Detailed logging for database operations and errors
+
+---
+
+## 🤝 Contributing
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+---
+
+## 📄 License
+MIT License
+
+---
+
+## 👥 Authors
+- Bhuvan Shah - Initial work
+
+---
+
+## 🙏 Acknowledgments
+- Chart.js for visualization
+- TailwindCSS for styling
+- Flask & SQLAlchemy for backend
