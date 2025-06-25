@@ -78,7 +78,10 @@ Open your browser to [http://localhost:5000](http://localhost:5000)
 
 > **Add your dashboard screenshots here!**
 
-![Dashboard Screenshot](path/to/your/dashboard_screenshot.png)
+![Dashboard Screenshot](/Users/rahulshah/Desktop/ML Projects/Healthcare Resource Optimisation /Screenshots/Bottom_half.png)
+
+![Dashboard Screenshot](/Users/rahulshah/Desktop/ML Projects/Healthcare Resource Optimisation /Screenshots/Top_Half.png)
+
 
 ---
 
