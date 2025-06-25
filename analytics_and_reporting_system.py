@@ -388,6 +388,111 @@ class HealthcareAnalytics:
                 )
 
         return recommendations
+
+    def get_daily_staff_workload_trends(self, days: int = 7) -> Dict:
+        """Get daily staff workload trends for line chart visualization"""
+        with self.db.engine.connect() as conn:
+            query = """
+            SELECT 
+                DATE(ss.shift_start) as date,
+                COUNT(DISTINCT ss.staff_id) as staff_on_duty,
+                SUM(EXTRACT(EPOCH FROM (ss.shift_end - ss.shift_start))/3600) as total_hours,
+                COUNT(DISTINCT ss.schedule_id) as total_shifts
+            FROM staff_schedules ss
+            WHERE ss.shift_start >= CURRENT_DATE - :days * INTERVAL '1 day'
+                AND ss.status = 'completed'
+            GROUP BY DATE(ss.shift_start)
+            ORDER BY date
+            """
+            
+            results = conn.execute(text(query), {'days': days}).fetchall()
+            
+            # Fill in missing dates with zero values
+            dates = []
+            workload_data = []
+            
+            for i in range(days):
+                date = datetime.now() - timedelta(days=i)
+                dates.append(date.strftime('%Y-%m-%d'))
+            
+            dates.reverse()
+            
+            # Create a lookup for actual data
+            data_lookup = {str(r[0]): {'staff': r[1], 'hours': r[2], 'shifts': r[3]} for r in results}
+            
+            for date in dates:
+                if date in data_lookup:
+                    workload_data.append({
+                        'date': date,
+                        'staff_on_duty': data_lookup[date]['staff'],
+                        'total_hours': float(data_lookup[date]['hours'] or 0),
+                        'total_shifts': data_lookup[date]['shifts']
+                    })
+                else:
+                    workload_data.append({
+                        'date': date,
+                        'staff_on_duty': 0,
+                        'total_hours': 0,
+                        'total_shifts': 0
+                    })
+            
+            return {
+                'daily_trends': workload_data,
+                'summary': {
+                    'average_staff_per_day': sum(d['staff_on_duty'] for d in workload_data) / len(workload_data),
+                    'average_hours_per_day': sum(d['total_hours'] for d in workload_data) / len(workload_data),
+                    'total_shifts': sum(d['total_shifts'] for d in workload_data)
+                }
+            }
+
+    def get_detailed_bed_occupancy(self, department_id: Optional[int] = None) -> Dict:
+        """Get detailed bed occupancy with actual bed counts"""
+        with self.db.engine.connect() as conn:
+            query = """
+            SELECT 
+                d.department_id,
+                d.name as department_name,
+                d.bed_capacity as total_beds,
+                COUNT(DISTINCT b.bed_id) as actual_beds,
+                COUNT(DISTINCT CASE WHEN b.status = 'occupied' THEN b.bed_id END) as occupied_beds,
+                COUNT(DISTINCT CASE WHEN b.status = 'available' THEN b.bed_id END) as available_beds,
+                COUNT(DISTINCT CASE WHEN b.status = 'maintenance' THEN b.bed_id END) as maintenance_beds
+            FROM departments d
+            LEFT JOIN beds b ON d.department_id = b.department_id
+            """
+            
+            params = {}
+            if department_id:
+                query += " WHERE d.department_id = :dept_id"
+                params['dept_id'] = department_id
+                
+            query += " GROUP BY d.department_id, d.name, d.bed_capacity"
+            
+            results = conn.execute(text(query), params).fetchall()
+            
+            bed_data = [{
+                'department_id': r[0],
+                'department_name': r[1],
+                'total_beds': r[2],
+                'actual_beds': r[3],
+                'occupied_beds': r[4],
+                'available_beds': r[5],
+                'maintenance_beds': r[6],
+                'occupancy_rate': round((r[4] / r[3] * 100) if r[3] > 0 else 0, 2)
+            } for r in results]
+            
+            return {
+                'department_beds': bed_data,
+                'summary': {
+                    'total_beds': sum(d['total_beds'] for d in bed_data),
+                    'occupied_beds': sum(d['occupied_beds'] for d in bed_data),
+                    'available_beds': sum(d['available_beds'] for d in bed_data),
+                    'overall_occupancy_rate': round(
+                        sum(d['occupied_beds'] for d in bed_data) / 
+                        sum(d['actual_beds'] for d in bed_data) * 100, 2
+                    ) if sum(d['actual_beds'] for d in bed_data) > 0 else 0
+                }
+            }
     
 if __name__ == "__main__":
     analytics = HealthcareAnalytics()

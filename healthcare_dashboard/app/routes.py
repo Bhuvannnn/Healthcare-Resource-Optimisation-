@@ -18,10 +18,12 @@ def get_data():
         analytics = HealthcareAnalytics()
         data = {
             'bed_occupancy': analytics.get_bed_occupancy_trends(),
+            'detailed_bed_occupancy': analytics.get_detailed_bed_occupancy(),
             'staff_workload': analytics.analyze_staff_workload(
                 datetime.now() - timedelta(days=30),
                 datetime.now()
             ),
+            'staff_workload_trends': analytics.get_daily_staff_workload_trends(7),
             'equipment_utilization': analytics.analyze_equipment_utilization(),
             'supplies': analytics.analyze_supply_consumption()
         }
@@ -38,10 +40,12 @@ def debug_data():
         analytics = HealthcareAnalytics()
         data = {
             'bed_occupancy': analytics.get_bed_occupancy_trends(),
+            'detailed_bed_occupancy': analytics.get_detailed_bed_occupancy(),
             'staff_workload': analytics.analyze_staff_workload(
                 datetime.now() - timedelta(days=30),
                 datetime.now()
             ),
+            'staff_workload_trends': analytics.get_daily_staff_workload_trends(7),
             'equipment_utilization': analytics.analyze_equipment_utilization(),
             'supplies': analytics.analyze_supply_consumption()
         }

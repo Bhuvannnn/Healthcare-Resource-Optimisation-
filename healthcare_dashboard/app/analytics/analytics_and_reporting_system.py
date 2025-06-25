@@ -389,6 +389,180 @@ class HealthcareAnalytics:
 
         return recommendations
     
+    def get_daily_staff_workload_trends(self, days: int = 7) -> Dict:
+        """Get daily staff workload trends for line chart visualization"""
+        with self.db.engine.connect() as conn:
+            query = """
+            SELECT 
+                DATE(ss.shift_start) as date,
+                COUNT(DISTINCT ss.staff_id) as staff_on_duty,
+                SUM(EXTRACT(EPOCH FROM (ss.shift_end - ss.shift_start))/3600) as total_hours,
+                COUNT(DISTINCT ss.schedule_id) as total_shifts
+            FROM staff_schedules ss
+            WHERE ss.shift_start >= CURRENT_DATE - :days * INTERVAL '1 day'
+                AND ss.status = 'completed'
+            GROUP BY DATE(ss.shift_start)
+            ORDER BY date
+            """
+            
+            results = conn.execute(text(query), {'days': days}).fetchall()
+            
+            # Fill in missing dates with zero values
+            dates = []
+            workload_data = []
+            
+            for i in range(days):
+                date = datetime.now() - timedelta(days=i)
+                dates.append(date.strftime('%Y-%m-%d'))
+            
+            dates.reverse()
+            
+            # Create a lookup for actual data
+            data_lookup = {str(r[0]): {'staff': r[1], 'hours': r[2], 'shifts': r[3]} for r in results}
+            
+            for date in dates:
+                if date in data_lookup:
+                    workload_data.append({
+                        'date': date,
+                        'staff_on_duty': data_lookup[date]['staff'],
+                        'total_hours': float(data_lookup[date]['hours'] or 0),
+                        'total_shifts': data_lookup[date]['shifts']
+                    })
+                else:
+                    workload_data.append({
+                        'date': date,
+                        'staff_on_duty': 0,
+                        'total_hours': 0,
+                        'total_shifts': 0
+                    })
+            
+            return {
+                'daily_trends': workload_data,
+                'summary': {
+                    'average_staff_per_day': sum(d['staff_on_duty'] for d in workload_data) / len(workload_data),
+                    'average_hours_per_day': sum(d['total_hours'] for d in workload_data) / len(workload_data),
+                    'total_shifts': sum(d['total_shifts'] for d in workload_data)
+                }
+            }
+
+    def get_detailed_bed_occupancy(self, department_id: Optional[int] = None) -> Dict:
+        """Get detailed bed occupancy with actual bed counts"""
+        with self.db.engine.connect() as conn:
+            query = """
+            SELECT 
+                d.department_id,
+                d.name as department_name,
+                d.bed_capacity as total_beds,
+                COUNT(DISTINCT b.bed_id) as actual_beds,
+                COUNT(DISTINCT CASE WHEN b.status = 'occupied' THEN b.bed_id END) as occupied_beds,
+                COUNT(DISTINCT CASE WHEN b.status = 'available' THEN b.bed_id END) as available_beds,
+                COUNT(DISTINCT CASE WHEN b.status = 'maintenance' THEN b.bed_id END) as maintenance_beds
+            FROM departments d
+            LEFT JOIN beds b ON d.department_id = b.department_id
+            """
+            
+            params = {}
+            if department_id:
+                query += " WHERE d.department_id = :dept_id"
+                params['dept_id'] = department_id
+                
+            query += " GROUP BY d.department_id, d.name, d.bed_capacity"
+            
+            results = conn.execute(text(query), params).fetchall()
+            
+            bed_data = [{
+                'department_id': r[0],
+                'department_name': r[1],
+                'total_beds': r[2],
+                'actual_beds': r[3],
+                'occupied_beds': r[4],
+                'available_beds': r[5],
+                'maintenance_beds': r[6],
+                'occupancy_rate': round((r[4] / r[3] * 100) if r[3] > 0 else 0, 2)
+            } for r in results]
+            
+            return {
+                'department_beds': bed_data,
+                'summary': {
+                    'total_beds': sum(d['total_beds'] for d in bed_data),
+                    'occupied_beds': sum(d['occupied_beds'] for d in bed_data),
+                    'available_beds': sum(d['available_beds'] for d in bed_data),
+                    'overall_occupancy_rate': round(
+                        sum(d['occupied_beds'] for d in bed_data) / 
+                        sum(d['actual_beds'] for d in bed_data) * 100, 2
+                    ) if sum(d['actual_beds'] for d in bed_data) > 0 else 0
+                }
+            }
+
+    def get_department_status(self, department_id: int) -> Dict:
+        """Get current status of a specific department"""
+        with self.db.engine.connect() as conn:
+            # Get department info
+            dept_query = """
+            SELECT 
+                d.department_id,
+                d.name,
+                d.bed_capacity,
+                COUNT(DISTINCT b.bed_id) as total_beds,
+                COUNT(DISTINCT CASE WHEN b.status = 'occupied' THEN b.bed_id END) as occupied_beds,
+                COUNT(DISTINCT e.equipment_id) as total_equipment
+            FROM departments d
+            LEFT JOIN beds b ON d.department_id = b.department_id
+            LEFT JOIN equipment e ON d.department_id = e.department_id
+            WHERE d.department_id = :dept_id
+            GROUP BY d.department_id, d.name, d.bed_capacity
+            """
+            
+            dept_result = conn.execute(text(dept_query), {'dept_id': department_id}).fetchone()
+            
+            if not dept_result:
+                return {'error': 'Department not found'}
+            
+            # Get staff count separately
+            staff_query = """
+            SELECT COUNT(DISTINCT staff_id) as total_staff
+            FROM staff
+            WHERE department = (SELECT name FROM departments WHERE department_id = :dept_id)
+            """
+            
+            staff_result = conn.execute(text(staff_query), {'dept_id': department_id}).fetchone()
+            
+            # Get recent admissions
+            admissions_query = """
+            SELECT COUNT(*) as recent_admissions
+            FROM admissions
+            WHERE department_id = :dept_id 
+                AND admission_date >= CURRENT_DATE - INTERVAL '7 days'
+            """
+            
+            admissions_result = conn.execute(text(admissions_query), {'dept_id': department_id}).fetchone()
+            
+            # Get equipment in use
+            equipment_query = """
+            SELECT COUNT(*) as equipment_in_use
+            FROM equipment e
+            LEFT JOIN equipment_usage eu ON e.equipment_id = eu.equipment_id
+            WHERE e.department_id = :dept_id 
+                AND (eu.end_time IS NULL OR eu.end_time > CURRENT_TIMESTAMP)
+            """
+            
+            equipment_result = conn.execute(text(equipment_query), {'dept_id': department_id}).fetchone()
+            
+            return {
+                'department_id': dept_result[0],
+                'name': dept_result[1],
+                'bed_capacity': dept_result[2],
+                'total_beds': dept_result[3],
+                'occupied_beds': dept_result[4],
+                'available_beds': dept_result[3] - dept_result[4],
+                'occupancy_rate': round((dept_result[4] / dept_result[3] * 100) if dept_result[3] > 0 else 0, 2),
+                'total_staff': staff_result[0] if staff_result else 0,
+                'total_equipment': dept_result[5],
+                'recent_admissions': admissions_result[0] if admissions_result else 0,
+                'equipment_in_use': equipment_result[0] if equipment_result else 0,
+                'status': 'operational' if dept_result[4] < dept_result[3] else 'at_capacity'
+            }
+    
 if __name__ == "__main__":
     analytics = HealthcareAnalytics()
     
